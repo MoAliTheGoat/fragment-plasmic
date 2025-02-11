@@ -7,7 +7,7 @@
   },
   "style": {
     "scheme": "css-modules",
-    "defaultStyleCssFilePath": "plasmic/plasmic__default_style.css"
+    "defaultStyleCssFilePath": "plasmic/plasmic__default_style.module.css"
   },
   "images": {
     "scheme": "public-files",
@@ -227,7 +227,8 @@
           "componentImportPath": "@plasmicpkgs/react-aria/skinny/registerDialog"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "8PtdGodUbexNYgkuyBUcWu",
@@ -249,7 +250,8 @@
           "componentImportPath": "@plasmicpkgs/plasmic-embed-css"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "YUiM7yqBWAqsh8KSnrdj7",
@@ -277,7 +279,8 @@
           "componentImportPath": "@plasmicpkgs/plasmic-query"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "fy2Wd7JJUEGBqb9w6rWnVF",
@@ -705,79 +708,79 @@
           "componentImportPath": "@plasmicapp/react-web/lib/data-sources"
         },
         {
-          "id": "MXUqZKKVNSOv",
+          "id": "7QsDE-bj6gw6",
           "name": "DatePicker",
           "displayName": "DatePicker",
           "componentImportPath": "@/fragment/components/date-picker"
         },
         {
-          "id": "WgqXOjD0XGaJ",
+          "id": "gAuyPKFPeccb",
           "name": "TimePicker",
           "displayName": "TimePicker",
           "componentImportPath": "@/fragment/components/time-picker"
         },
         {
-          "id": "A4TlaGCWTMEi",
+          "id": "CPXnQ7EFVWmP",
           "name": "Popover",
           "displayName": "Popover",
           "componentImportPath": "@/fragment/components/popover"
         },
         {
-          "id": "kObTEE0Wurph",
+          "id": "ITH8QS4RPjd_",
           "name": "Select",
           "displayName": "Select",
           "componentImportPath": "@/fragment/components/select"
         },
         {
-          "id": "FJz4Df59AZ8F",
+          "id": "ARCJ-ldr1mBr",
           "name": "Input",
           "displayName": "Input",
           "componentImportPath": "@/fragment/components/input"
         },
         {
-          "id": "TUV5tf_lFrLm",
+          "id": "OG_cUCPTTyXM",
           "name": "Switch",
           "displayName": "Switch",
           "componentImportPath": "@/fragment/components/switch"
         },
         {
-          "id": "fpUgmlH8rPvh",
+          "id": "eHRtxFYki5Mb",
           "name": "Slider",
           "displayName": "Slider",
           "componentImportPath": "@/fragment/components/slider"
         },
         {
-          "id": "-nzqaNrl4Pb5",
+          "id": "25Vs_9R29fZY",
           "name": "ApiRequest",
           "displayName": "ApiRequest",
           "componentImportPath": "@/fragment/components/api-request"
         },
         {
-          "id": "Cpb92sFdkNTd",
+          "id": "GD5yP7VO0o0P",
           "name": "Chart",
           "displayName": "Chart",
           "componentImportPath": "@/fragment/components/chart"
         },
         {
-          "id": "2wOCpL5pNfXg",
+          "id": "bGPgW4Lb4ZHH",
           "name": "Textarea",
           "displayName": "Textarea",
           "componentImportPath": "@/fragment/components/textarea"
         },
         {
-          "id": "TX3V2LJUHEC0",
+          "id": "8B9geO4eq2b6",
           "name": "Fragment",
           "displayName": "Fragment",
           "componentImportPath": "@/fragment/fragment"
         },
         {
-          "id": "EpeUYoRoH4RG",
+          "id": "YVo92HV0DNDV",
           "name": "GrowthBook",
           "displayName": "GrowthBook",
           "componentImportPath": "@/fragment/growthbook"
         },
         {
-          "id": "L4-KTgpm96Br",
+          "id": "gGifMJjbj50h",
           "name": "Splunk",
           "displayName": "Splunk",
           "componentImportPath": "@/fragment/splunk"

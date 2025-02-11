@@ -162,6 +162,12 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
 
         valueProp: "selectedTestId",
         onChangeProp: "onSelectedTestIdChange"
+      },
+      {
+        path: "questions.questions",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -189,11 +195,7 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
       )}
     >
       <div className={classNames(projectcss.all, sty.freeBox__m0AB1)}>
-        <Stack__
-          as={"div"}
-          hasGap={true}
-          className={classNames(projectcss.all, sty.freeBox__l7Frn)}
-        >
+        <div className={classNames(projectcss.all, sty.freeBox__l7Frn)}>
           <BackButton
             data-plasmic-name={"backButton"}
             data-plasmic-override={overrides.backButton}
@@ -252,6 +254,20 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
                 return;
               }
             }}
+            onQuestionsChange={async (...eventArgs: any) => {
+              generateStateOnChangeProp($state, [
+                "questions",
+                "questions"
+              ]).apply(null, eventArgs);
+
+              if (
+                eventArgs.length > 1 &&
+                eventArgs[1] &&
+                eventArgs[1]._plasmic_state_init_
+              ) {
+                return;
+              }
+            }}
             onShowResultsChange={async (...eventArgs: any) => {
               generateStateOnChangeProp($state, [
                 "questions",
@@ -293,7 +309,7 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
               }
             })()}
           />
-        </Stack__>
+        </div>
       </div>
     </div>
   ) as React.ReactElement | null;

@@ -59,7 +59,6 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: -nzqaNrl4Pb5/codeComponent
 import SelectTestPage from "../../SelectTestPage"; // plasmic-import: NS5HItibdY0W/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -80,7 +79,6 @@ export const PlasmicHome__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicHome__OverridesType = {
   root?: Flex__<"div">;
-  apiRequest?: Flex__<typeof ApiRequest>;
   selectTestPage?: Flex__<typeof SelectTestPage>;
 };
 
@@ -124,36 +122,6 @@ function PlasmicHome__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
-  const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
-    () => [
-      {
-        path: "apiRequest.data",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest.error",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest.loading",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      }
-    ],
-    [$props, $ctx, $refs]
-  );
-  const $state = useDollarState(stateSpecs, {
-    $props,
-    $ctx,
-    $queries: {},
-    $refs
-  });
-
   return (
     <React.Fragment>
       <Head>
@@ -192,100 +160,6 @@ function PlasmicHome__RenderFunc(props: {
             sty.root
           )}
         >
-          <ApiRequest
-            data-plasmic-name={"apiRequest"}
-            data-plasmic-override={overrides.apiRequest}
-            className={classNames("__wab_instance", sty.apiRequest)}
-            errorDisplay={
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__zOTby
-                )}
-              >
-                {"Error fetching data"}
-              </div>
-            }
-            loadingDisplay={
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__amBg1
-                )}
-              >
-                {"Loading..."}
-              </div>
-            }
-            method={"GET"}
-            onError={async (...eventArgs: any) => {
-              generateStateOnChangeProp($state, ["apiRequest", "error"]).apply(
-                null,
-                eventArgs
-              );
-            }}
-            onLoading={async (...eventArgs: any) => {
-              generateStateOnChangeProp($state, [
-                "apiRequest",
-                "loading"
-              ]).apply(null, eventArgs);
-            }}
-            onSuccess={async (...eventArgs: any) => {
-              generateStateOnChangeProp($state, ["apiRequest", "data"]).apply(
-                null,
-                eventArgs
-              );
-            }}
-            url={"https://n8n-doctorjan.darkube.app/webhook/v1/testsInfo"}
-          >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__rwB9
-              )}
-            >
-              <React.Fragment>
-                {(() => {
-                  try {
-                    return $state.apiRequest.data[0].test_name;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return "";
-                    }
-                    throw e;
-                  }
-                })()}
-              </React.Fragment>
-            </div>
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__pzaQh
-              )}
-            >
-              <React.Fragment>
-                {(() => {
-                  try {
-                    return "درحال استفاده از فرگمنت";
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return "";
-                    }
-                    throw e;
-                  }
-                })()}
-              </React.Fragment>
-            </div>
-          </ApiRequest>
           <SelectTestPage
             data-plasmic-name={"selectTestPage"}
             data-plasmic-override={overrides.selectTestPage}
@@ -324,8 +198,7 @@ function PlasmicHome__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "apiRequest", "selectTestPage"],
-  apiRequest: ["apiRequest"],
+  root: ["root", "selectTestPage"],
   selectTestPage: ["selectTestPage"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -333,7 +206,6 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  apiRequest: typeof ApiRequest;
   selectTestPage: typeof SelectTestPage;
 };
 
@@ -397,7 +269,6 @@ export const PlasmicHome = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    apiRequest: makeNodeComponent("apiRequest"),
     selectTestPage: makeNodeComponent("selectTestPage"),
 
     // Metadata about props expected for PlasmicHome

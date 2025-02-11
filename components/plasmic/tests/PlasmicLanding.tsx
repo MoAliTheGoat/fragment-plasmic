@@ -59,14 +59,7 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import { usePlasmicDataSourceContext } from "@plasmicapp/data-sources-context";
-import {
-  executePlasmicDataOp,
-  usePlasmicDataOp,
-  usePlasmicInvalidate
-} from "@plasmicapp/react-web/lib/data-sources";
-
-import { DataFetcher } from "@plasmicpkgs/plasmic-query";
+import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
 import TestTypeButton from "../../TestTypeButton"; // plasmic-import: Yv82Xv6cbZ8D/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -99,7 +92,7 @@ export const PlasmicLanding__ArgProps = new Array<ArgPropType>(
 
 export type PlasmicLanding__OverridesType = {
   root?: Flex__<"div">;
-  httpRestApiFetcher?: Flex__<typeof DataFetcher>;
+  apiRequest?: Flex__<typeof ApiRequest>;
   svg?: Flex__<"svg">;
   testTypeButton?: Flex__<typeof TestTypeButton>;
 };
@@ -150,6 +143,8 @@ function PlasmicLanding__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
+  const $globalActions = useGlobalActions?.();
+
   const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
     () => [
       {
@@ -159,6 +154,24 @@ function PlasmicLanding__RenderFunc(props: {
 
         valueProp: "selectedTestId",
         onChangeProp: "onSelectedTestIdChange"
+      },
+      {
+        path: "apiRequest.data",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest.error",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest.loading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -169,8 +182,6 @@ function PlasmicLanding__RenderFunc(props: {
     $queries: {},
     $refs
   });
-  const dataSourcesCtx = usePlasmicDataSourceContext();
-  const plasmicInvalidate = usePlasmicInvalidate();
 
   return (
     <Stack__
@@ -218,175 +229,178 @@ function PlasmicLanding__RenderFunc(props: {
         </div>
       </Stack__>
       <div className={classNames(projectcss.all, sty.freeBox__owihF)}>
-        <DataFetcher
-          data-plasmic-name={"httpRestApiFetcher"}
-          data-plasmic-override={overrides.httpRestApiFetcher}
-          className={classNames("__wab_instance", sty.httpRestApiFetcher)}
-          dataName={"fetchedData"}
+        <ApiRequest
+          data-plasmic-name={"apiRequest"}
+          data-plasmic-override={overrides.apiRequest}
+          className={classNames("__wab_instance", sty.apiRequest)}
           errorDisplay={
-            <DataCtxReader__>{$ctx => "Error fetching data"}</DataCtxReader__>
-          }
-          errorName={"fetchError"}
-          loadingDisplay={
-            <DataCtxReader__>
-              {$ctx => (
-                <MotionBlur2SvgIcon
-                  data-plasmic-name={"svg"}
-                  data-plasmic-override={overrides.svg}
-                  className={classNames(projectcss.all, sty.svg)}
-                  role={"img"}
-                />
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__amFbk
               )}
-            </DataCtxReader__>
+            >
+              {"Error fetching data"}
+            </div>
+          }
+          loadingDisplay={
+            <MotionBlur2SvgIcon
+              data-plasmic-name={"svg"}
+              data-plasmic-override={overrides.svg}
+              className={classNames(projectcss.all, sty.svg)}
+              role={"img"}
+            />
           }
           method={"GET"}
-          noLayout={false}
-          previewSpinner={false}
+          onError={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest", "error"]).apply(
+              null,
+              eventArgs
+            );
+          }}
+          onLoading={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest", "loading"]).apply(
+              null,
+              eventArgs
+            );
+          }}
+          onSuccess={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest", "data"]).apply(
+              null,
+              eventArgs
+            );
+          }}
           url={"https://n8n-doctorjan.darkube.app/webhook/v1/testsInfo"}
         >
-          <DataCtxReader__>
-            {$ctx =>
-              (_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
-                (() => {
+          {(_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
+            (() => {
+              try {
+                return $state.apiRequest.data;
+              } catch (e) {
+                if (
+                  e instanceof TypeError ||
+                  e?.plasmicType === "PlasmicUndefinedDataError"
+                ) {
+                  return [];
+                }
+                throw e;
+              }
+            })()
+          ).map((__plasmic_item_0, __plasmic_idx_0) => {
+            const currentItem = __plasmic_item_0;
+            const currentIndex = __plasmic_idx_0;
+            return (
+              <TestTypeButton
+                data-plasmic-name={"testTypeButton"}
+                data-plasmic-override={overrides.testTypeButton}
+                className={classNames("__wab_instance", sty.testTypeButton)}
+                key={currentIndex}
+                onClick={async () => {
+                  const $steps = {};
+
+                  $steps["updateSelectedTestId"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          variable: {
+                            objRoot: $state,
+                            variablePath: ["selectedTestId"]
+                          },
+                          operation: 0,
+                          value: currentItem.id
+                        };
+                        return (({
+                          variable,
+                          value,
+                          startIndex,
+                          deleteCount
+                        }) => {
+                          if (!variable) {
+                            return;
+                          }
+                          const { objRoot, variablePath } = variable;
+
+                          $stateSet(objRoot, variablePath, value);
+                          return value;
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["updateSelectedTestId"] != null &&
+                    typeof $steps["updateSelectedTestId"] === "object" &&
+                    typeof $steps["updateSelectedTestId"].then === "function"
+                  ) {
+                    $steps["updateSelectedTestId"] = await $steps[
+                      "updateSelectedTestId"
+                    ];
+                  }
+
+                  $steps["updateSelectedTestId2"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          args: [
+                            "POST",
+                            "https://n8n-doctorjan.darkube.app/webhook/v1/addUser",
+                            undefined,
+                            (() => {
+                              try {
+                                return {
+                                  userId: $props.userId,
+                                  userName: $props.userName
+                                };
+                              } catch (e) {
+                                if (
+                                  e instanceof TypeError ||
+                                  e?.plasmicType === "PlasmicUndefinedDataError"
+                                ) {
+                                  return undefined;
+                                }
+                                throw e;
+                              }
+                            })()
+                          ]
+                        };
+                        return $globalActions["Fragment.apiRequest"]?.apply(
+                          null,
+                          [...actionArgs.args]
+                        );
+                      })()
+                    : undefined;
+                  if (
+                    $steps["updateSelectedTestId2"] != null &&
+                    typeof $steps["updateSelectedTestId2"] === "object" &&
+                    typeof $steps["updateSelectedTestId2"].then === "function"
+                  ) {
+                    $steps["updateSelectedTestId2"] = await $steps[
+                      "updateSelectedTestId2"
+                    ];
+                  }
+                }}
+                testType={(() => {
                   try {
-                    return $ctx.fetchedData;
+                    return currentItem.test_name;
                   } catch (e) {
                     if (
                       e instanceof TypeError ||
                       e?.plasmicType === "PlasmicUndefinedDataError"
                     ) {
-                      return [];
+                      return undefined;
                     }
                     throw e;
                   }
-                })()
-              ).map((__plasmic_item_0, __plasmic_idx_0) => {
-                const currentItem = __plasmic_item_0;
-                const currentIndex = __plasmic_idx_0;
-                return (
-                  <TestTypeButton
-                    data-plasmic-name={"testTypeButton"}
-                    data-plasmic-override={overrides.testTypeButton}
-                    className={classNames("__wab_instance", sty.testTypeButton)}
-                    key={currentIndex}
-                    onClick={async () => {
-                      const $steps = {};
-
-                      $steps["updateSelectedTestId"] = true
-                        ? (() => {
-                            const actionArgs = {
-                              variable: {
-                                objRoot: $state,
-                                variablePath: ["selectedTestId"]
-                              },
-                              operation: 0,
-                              value: currentItem.id
-                            };
-                            return (({
-                              variable,
-                              value,
-                              startIndex,
-                              deleteCount
-                            }) => {
-                              if (!variable) {
-                                return;
-                              }
-                              const { objRoot, variablePath } = variable;
-
-                              $stateSet(objRoot, variablePath, value);
-                              return value;
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                      if (
-                        $steps["updateSelectedTestId"] != null &&
-                        typeof $steps["updateSelectedTestId"] === "object" &&
-                        typeof $steps["updateSelectedTestId"].then ===
-                          "function"
-                      ) {
-                        $steps["updateSelectedTestId"] = await $steps[
-                          "updateSelectedTestId"
-                        ];
-                      }
-
-                      $steps["updateSelectedTestId2"] = true
-                        ? (() => {
-                            const actionArgs = {
-                              dataOp: {
-                                sourceId: "rygvhFVbugqfpDLrKooiPY",
-                                opId: "8d9e4586-ef06-4cb7-9ed5-e407cd0f620c",
-                                userArgs: {
-                                  body: [
-                                    {
-                                      userId: $props.userId,
-                                      userName: $props.userName
-                                    }
-                                  ]
-                                },
-                                cacheKey: null,
-                                invalidatedKeys: ["plasmic_refresh_all"],
-                                roleId: null
-                              }
-                            };
-                            return (async ({ dataOp, continueOnError }) => {
-                              try {
-                                const response = await executePlasmicDataOp(
-                                  dataOp,
-                                  {
-                                    userAuthToken:
-                                      dataSourcesCtx?.userAuthToken,
-                                    user: dataSourcesCtx?.user
-                                  }
-                                );
-                                await plasmicInvalidate(dataOp.invalidatedKeys);
-                                return response;
-                              } catch (e) {
-                                if (!continueOnError) {
-                                  throw e;
-                                }
-                                return e;
-                              }
-                            })?.apply(null, [actionArgs]);
-                          })()
-                        : undefined;
-                      if (
-                        $steps["updateSelectedTestId2"] != null &&
-                        typeof $steps["updateSelectedTestId2"] === "object" &&
-                        typeof $steps["updateSelectedTestId2"].then ===
-                          "function"
-                      ) {
-                        $steps["updateSelectedTestId2"] = await $steps[
-                          "updateSelectedTestId2"
-                        ];
-                      }
-                    }}
-                    testType={(() => {
-                      try {
-                        return currentItem.test_name;
-                      } catch (e) {
-                        if (
-                          e instanceof TypeError ||
-                          e?.plasmicType === "PlasmicUndefinedDataError"
-                        ) {
-                          return undefined;
-                        }
-                        throw e;
-                      }
-                    })()}
-                  />
-                );
-              })
-            }
-          </DataCtxReader__>
-        </DataFetcher>
+                })()}
+              />
+            );
+          })}
+        </ApiRequest>
       </div>
     </Stack__>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "httpRestApiFetcher", "svg", "testTypeButton"],
-  httpRestApiFetcher: ["httpRestApiFetcher", "svg", "testTypeButton"],
+  root: ["root", "apiRequest", "svg", "testTypeButton"],
+  apiRequest: ["apiRequest", "svg", "testTypeButton"],
   svg: ["svg"],
   testTypeButton: ["testTypeButton"]
 } as const;
@@ -395,7 +409,7 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  httpRestApiFetcher: typeof DataFetcher;
+  apiRequest: typeof ApiRequest;
   svg: "svg";
   testTypeButton: typeof TestTypeButton;
 };
@@ -460,7 +474,7 @@ export const PlasmicLanding = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    httpRestApiFetcher: makeNodeComponent("httpRestApiFetcher"),
+    apiRequest: makeNodeComponent("apiRequest"),
     svg: makeNodeComponent("svg"),
     testTypeButton: makeNodeComponent("testTypeButton"),
 

@@ -7,9 +7,9 @@
 import * as React from "react";
 import { hasVariant, ensureGlobalVariants } from "@plasmicapp/react-web";
 import { EmbedCss } from "@plasmicpkgs/plasmic-embed-css";
-import { Fragment } from "@/fragment/fragment"; // plasmic-import: TX3V2LJUHEC0/codeComponent
-import { GrowthBook } from "@/fragment/growthbook"; // plasmic-import: EpeUYoRoH4RG/codeComponent
-import { Splunk } from "@/fragment/splunk"; // plasmic-import: L4-KTgpm96Br/codeComponent
+import { Fragment } from "@/fragment/fragment"; // plasmic-import: 8B9geO4eq2b6/codeComponent
+import { GrowthBook } from "@/fragment/growthbook"; // plasmic-import: YVo92HV0DNDV/codeComponent
+import { Splunk } from "@/fragment/splunk"; // plasmic-import: gGifMJjbj50h/codeComponent
 
 export interface GlobalContextsProviderProps {
   children?: React.ReactElement;

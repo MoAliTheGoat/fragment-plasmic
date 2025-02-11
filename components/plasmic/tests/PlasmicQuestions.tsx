@@ -59,14 +59,7 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import { usePlasmicDataSourceContext } from "@plasmicapp/data-sources-context";
-import {
-  executePlasmicDataOp,
-  usePlasmicDataOp,
-  usePlasmicInvalidate
-} from "@plasmicapp/react-web/lib/data-sources";
-
-import { DataFetcher } from "@plasmicpkgs/plasmic-query";
+import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
 import QuestionContainer from "../../QuestionContainer"; // plasmic-import: dUNsHrAjueyS/component
 import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 
@@ -89,18 +82,22 @@ export type PlasmicQuestions__ArgsType = {
   userId?: string;
   onShowResultsChange?: (val: string) => void;
   testId?: number;
+  onQuestionsChange?: (val: string) => void;
 };
 type ArgPropType = keyof PlasmicQuestions__ArgsType;
 export const PlasmicQuestions__ArgProps = new Array<ArgPropType>(
   "onCurrentQuestionChange",
   "userId",
   "onShowResultsChange",
-  "testId"
+  "testId",
+  "onQuestionsChange"
 );
 
 export type PlasmicQuestions__OverridesType = {
   root?: Flex__<"div">;
+  apiRequest?: Flex__<typeof ApiRequest>;
   questionContainer?: Flex__<typeof QuestionContainer>;
+  apiRequest2?: Flex__<typeof ApiRequest>;
   showResult?: Flex__<typeof ShowResult>;
 };
 
@@ -109,6 +106,7 @@ export interface DefaultQuestionsProps {
   userId?: string;
   onShowResultsChange?: (val: string) => void;
   testId?: number;
+  onQuestionsChange?: (val: string) => void;
   className?: string;
 }
 
@@ -150,6 +148,8 @@ function PlasmicQuestions__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
+  const $globalActions = useGlobalActions?.();
+
   const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
     () => [
       {
@@ -167,6 +167,63 @@ function PlasmicQuestions__RenderFunc(props: {
         initFunc: ({ $props, $state, $queries, $ctx }) => false,
 
         onChangeProp: "onShowResultsChange"
+      },
+      {
+        path: "apiRequest.data",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest.error",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest.loading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.data",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.error",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.loading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "questions",
+        type: "readonly",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) =>
+          (() => {
+            try {
+              return $state.apiRequest.data;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return {};
+              }
+              throw e;
+            }
+          })(),
+
+        onChangeProp: "onQuestionsChange"
       }
     ],
     [$props, $ctx, $refs]
@@ -177,8 +234,6 @@ function PlasmicQuestions__RenderFunc(props: {
     $queries: {},
     $refs
   });
-  const dataSourcesCtx = usePlasmicDataSourceContext();
-  const plasmicInvalidate = usePlasmicInvalidate();
 
   return (
     <Stack__
@@ -197,26 +252,46 @@ function PlasmicQuestions__RenderFunc(props: {
         sty.root
       )}
     >
-      <DataFetcher
-        className={classNames("__wab_instance", sty.httpRestApiFetcher__h2Ujp)}
-        dataName={"fetchedData"}
+      <ApiRequest
+        data-plasmic-name={"apiRequest"}
+        data-plasmic-override={overrides.apiRequest}
+        className={classNames("__wab_instance", sty.apiRequest)}
         errorDisplay={
-          <DataCtxReader__>{$ctx => "Error fetching data"}</DataCtxReader__>
-        }
-        errorName={"fetchError"}
-        loadingDisplay={
-          <DataCtxReader__>
-            {$ctx => (
-              <MotionBlur2SvgIcon
-                className={classNames(projectcss.all, sty.svg__ui8Jr)}
-                role={"img"}
-              />
+          <div
+            className={classNames(
+              projectcss.all,
+              projectcss.__wab_text,
+              sty.text__olr0G
             )}
-          </DataCtxReader__>
+          >
+            {"Error fetching data"}
+          </div>
+        }
+        loadingDisplay={
+          <MotionBlur2SvgIcon
+            className={classNames(projectcss.all, sty.svg___0V6Lu)}
+            role={"img"}
+          />
         }
         method={"GET"}
-        noLayout={false}
-        previewSpinner={false}
+        onError={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest", "error"]).apply(
+            null,
+            eventArgs
+          );
+        }}
+        onLoading={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest", "loading"]).apply(
+            null,
+            eventArgs
+          );
+        }}
+        onSuccess={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest", "data"]).apply(
+            null,
+            eventArgs
+          );
+        }}
         url={(() => {
           try {
             return `https://n8n-doctorjan.darkube.app/webhook/v1/tests?id=${$props.testId}`;
@@ -231,416 +306,463 @@ function PlasmicQuestions__RenderFunc(props: {
           }
         })()}
       >
-        <DataCtxReader__>
-          {$ctx => (
-            <Stack__
-              as={"div"}
-              hasGap={true}
-              className={classNames(projectcss.all, sty.freeBox__y34Bm)}
-            >
-              <div
-                className={classNames(
-                  projectcss.all,
-                  projectcss.__wab_text,
-                  sty.text__hs3Y
-                )}
-              >
-                <React.Fragment>
-                  {(() => {
-                    try {
-                      return (
-                        $state.currentQuestion + "/" + $ctx.fetchedData.length
-                      );
-                    } catch (e) {
-                      if (
-                        e instanceof TypeError ||
-                        e?.plasmicType === "PlasmicUndefinedDataError"
-                      ) {
-                        return "1/30";
-                      }
-                      throw e;
-                    }
-                  })()}
-                </React.Fragment>
-              </div>
+        <Stack__
+          as={"div"}
+          hasGap={true}
+          className={classNames(projectcss.all, sty.freeBox__y34Bm)}
+        >
+          <div
+            className={classNames(
+              projectcss.all,
+              projectcss.__wab_text,
+              sty.text__hs3Y
+            )}
+          >
+            <React.Fragment>
               {(() => {
                 try {
-                  return !$state.showResults;
+                  return $state.currentQuestion + "/" + $state.questions.length;
                 } catch (e) {
                   if (
                     e instanceof TypeError ||
                     e?.plasmicType === "PlasmicUndefinedDataError"
                   ) {
-                    return true;
+                    return "1/30";
                   }
                   throw e;
                 }
-              })()
-                ? (_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
-                    (() => {
+              })()}
+            </React.Fragment>
+          </div>
+          {(() => {
+            try {
+              return !$state.showResults;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return true;
+              }
+              throw e;
+            }
+          })()
+            ? (_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
+                (() => {
+                  try {
+                    return [$state.questions[$state.currentQuestion]];
+                  } catch (e) {
+                    if (
+                      e instanceof TypeError ||
+                      e?.plasmicType === "PlasmicUndefinedDataError"
+                    ) {
+                      return [];
+                    }
+                    throw e;
+                  }
+                })()
+              ).map((__plasmic_item_0, __plasmic_idx_0) => {
+                const currentItem = __plasmic_item_0;
+                const currentIndex = __plasmic_idx_0;
+                return (
+                  <QuestionContainer
+                    data-plasmic-name={"questionContainer"}
+                    data-plasmic-override={overrides.questionContainer}
+                    answerNo={(() => {
                       try {
-                        return [$ctx.fetchedData[$state.currentQuestion]];
+                        return currentItem.answers[1].answer_text;
                       } catch (e) {
                         if (
                           e instanceof TypeError ||
                           e?.plasmicType === "PlasmicUndefinedDataError"
                         ) {
-                          return [];
+                          return undefined;
                         }
                         throw e;
                       }
-                    })()
-                  ).map((__plasmic_item_0, __plasmic_idx_0) => {
-                    const currentItem = __plasmic_item_0;
-                    const currentIndex = __plasmic_idx_0;
-                    return (
-                      <QuestionContainer
-                        data-plasmic-name={"questionContainer"}
-                        data-plasmic-override={overrides.questionContainer}
-                        answerNo={(() => {
-                          try {
-                            return currentItem.answers[1].answer_text;
-                          } catch (e) {
-                            if (
-                              e instanceof TypeError ||
-                              e?.plasmicType === "PlasmicUndefinedDataError"
-                            ) {
-                              return undefined;
-                            }
-                            throw e;
-                          }
-                        })()}
-                        answerYes={(() => {
-                          try {
-                            return currentItem.answers[0].answer_text;
-                          } catch (e) {
-                            if (
-                              e instanceof TypeError ||
-                              e?.plasmicType === "PlasmicUndefinedDataError"
-                            ) {
-                              return undefined;
-                            }
-                            throw e;
-                          }
-                        })()}
-                        className={classNames(
-                          "__wab_instance",
-                          sty.questionContainer
-                        )}
-                        key={currentIndex}
-                        onClickNo={async () => {
-                          const $steps = {};
+                    })()}
+                    answerYes={(() => {
+                      try {
+                        return currentItem.answers[0].answer_text;
+                      } catch (e) {
+                        if (
+                          e instanceof TypeError ||
+                          e?.plasmicType === "PlasmicUndefinedDataError"
+                        ) {
+                          return undefined;
+                        }
+                        throw e;
+                      }
+                    })()}
+                    className={classNames(
+                      "__wab_instance",
+                      sty.questionContainer
+                    )}
+                    key={currentIndex}
+                    onClickNo={async () => {
+                      const $steps = {};
 
-                          $steps["updateCurrentQuestion"] =
-                            $state.currentQuestion < $ctx.fetchedData.length
-                              ? (() => {
-                                  const actionArgs = {
-                                    variable: {
-                                      objRoot: $state,
-                                      variablePath: ["currentQuestion"]
-                                    },
-                                    operation: 2,
-                                    value:
-                                      $state.currentQuestion <
-                                      $ctx.fetchedData.length
-                                  };
-                                  return (({
-                                    variable,
-                                    value,
-                                    startIndex,
-                                    deleteCount
-                                  }) => {
-                                    if (!variable) {
-                                      return;
-                                    }
-                                    const { objRoot, variablePath } = variable;
+                      $steps["updateCurrentQuestion"] =
+                        $state.currentQuestion < $state.questions.length
+                          ? (() => {
+                              const actionArgs = {
+                                variable: {
+                                  objRoot: $state,
+                                  variablePath: ["currentQuestion"]
+                                },
+                                operation: 2,
+                                value:
+                                  $state.currentQuestion <
+                                  $ctx.fetchedData.length
+                              };
+                              return (({
+                                variable,
+                                value,
+                                startIndex,
+                                deleteCount
+                              }) => {
+                                if (!variable) {
+                                  return;
+                                }
+                                const { objRoot, variablePath } = variable;
 
-                                    const oldValue = $stateGet(
-                                      objRoot,
-                                      variablePath
-                                    );
-                                    $stateSet(
-                                      objRoot,
-                                      variablePath,
-                                      oldValue + 1
-                                    );
-                                    return oldValue + 1;
-                                  })?.apply(null, [actionArgs]);
-                                })()
-                              : undefined;
-                          if (
-                            $steps["updateCurrentQuestion"] != null &&
-                            typeof $steps["updateCurrentQuestion"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion"] = await $steps[
-                              "updateCurrentQuestion"
-                            ];
-                          }
+                                const oldValue = $stateGet(
+                                  objRoot,
+                                  variablePath
+                                );
+                                $stateSet(objRoot, variablePath, oldValue + 1);
+                                return oldValue + 1;
+                              })?.apply(null, [actionArgs]);
+                            })()
+                          : undefined;
+                      if (
+                        $steps["updateCurrentQuestion"] != null &&
+                        typeof $steps["updateCurrentQuestion"] === "object" &&
+                        typeof $steps["updateCurrentQuestion"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion"] = await $steps[
+                          "updateCurrentQuestion"
+                        ];
+                      }
 
-                          $steps["updateCurrentQuestion2"] =
-                            $state.currentQuestion === $ctx.fetchedData.length
-                              ? (() => {
-                                  const actionArgs = {
-                                    variable: {
-                                      objRoot: $state,
-                                      variablePath: ["showResults"]
-                                    },
-                                    operation: 0,
-                                    value: true
-                                  };
-                                  return (({
-                                    variable,
-                                    value,
-                                    startIndex,
-                                    deleteCount
-                                  }) => {
-                                    if (!variable) {
-                                      return;
-                                    }
-                                    const { objRoot, variablePath } = variable;
+                      $steps["updateCurrentQuestion2"] =
+                        $state.currentQuestion === $state.questions.length
+                          ? (() => {
+                              const actionArgs = {
+                                variable: {
+                                  objRoot: $state,
+                                  variablePath: ["showResults"]
+                                },
+                                operation: 0,
+                                value: true
+                              };
+                              return (({
+                                variable,
+                                value,
+                                startIndex,
+                                deleteCount
+                              }) => {
+                                if (!variable) {
+                                  return;
+                                }
+                                const { objRoot, variablePath } = variable;
 
-                                    $stateSet(objRoot, variablePath, value);
-                                    return value;
-                                  })?.apply(null, [actionArgs]);
-                                })()
-                              : undefined;
-                          if (
-                            $steps["updateCurrentQuestion2"] != null &&
-                            typeof $steps["updateCurrentQuestion2"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion2"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion2"] = await $steps[
-                              "updateCurrentQuestion2"
-                            ];
-                          }
+                                $stateSet(objRoot, variablePath, value);
+                                return value;
+                              })?.apply(null, [actionArgs]);
+                            })()
+                          : undefined;
+                      if (
+                        $steps["updateCurrentQuestion2"] != null &&
+                        typeof $steps["updateCurrentQuestion2"] === "object" &&
+                        typeof $steps["updateCurrentQuestion2"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion2"] = await $steps[
+                          "updateCurrentQuestion2"
+                        ];
+                      }
 
-                          $steps["updateCurrentQuestion3"] = true
-                            ? (() => {
-                                const actionArgs = {
-                                  dataOp: {
-                                    sourceId: "natkPQpEziVHt8NpLfXm8t",
-                                    opId: "73470207-5573-41be-bab2-736ea1344587",
-                                    userArgs: {
-                                      body: [
-                                        {
-                                          userId: $props.userId,
-                                          test_id: $props.testId,
-                                          question_id: currentItem.question_id,
-                                          answer_id:
-                                            currentItem.answers[1].answer_id
-                                        }
-                                      ]
-                                    },
-                                    cacheKey: null,
-                                    invalidatedKeys: ["plasmic_refresh_all"],
-                                    roleId: null
-                                  }
-                                };
-                                return (async ({ dataOp, continueOnError }) => {
+                      $steps["updateCurrentQuestion3"] = true
+                        ? (() => {
+                            const actionArgs = {
+                              args: [
+                                "POST",
+                                "https://n8n-doctorjan.darkube.app/webhook/v1/submitScore",
+                                undefined,
+                                (() => {
                                   try {
-                                    const response = await executePlasmicDataOp(
-                                      dataOp,
-                                      {
-                                        userAuthToken:
-                                          dataSourcesCtx?.userAuthToken,
-                                        user: dataSourcesCtx?.user
-                                      }
-                                    );
-                                    await plasmicInvalidate(
-                                      dataOp.invalidatedKeys
-                                    );
-                                    return response;
+                                    return {
+                                      userId: $props.userId,
+                                      test_id: $props.testId,
+                                      question_id: currentItem.question_id,
+                                      answer_id:
+                                        currentItem.answers[1].answer_id
+                                    };
                                   } catch (e) {
-                                    if (!continueOnError) {
-                                      throw e;
+                                    if (
+                                      e instanceof TypeError ||
+                                      e?.plasmicType ===
+                                        "PlasmicUndefinedDataError"
+                                    ) {
+                                      return undefined;
                                     }
-                                    return e;
+                                    throw e;
                                   }
-                                })?.apply(null, [actionArgs]);
-                              })()
-                            : undefined;
-                          if (
-                            $steps["updateCurrentQuestion3"] != null &&
-                            typeof $steps["updateCurrentQuestion3"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion3"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion3"] = await $steps[
-                              "updateCurrentQuestion3"
-                            ];
-                          }
-                        }}
-                        onClickYes={async () => {
-                          const $steps = {};
-
-                          $steps["updateCurrentQuestion"] =
-                            $state.currentQuestion < $ctx.fetchedData.length
-                              ? (() => {
-                                  const actionArgs = {
-                                    variable: {
-                                      objRoot: $state,
-                                      variablePath: ["currentQuestion"]
-                                    },
-                                    operation: 2
-                                  };
-                                  return (({
-                                    variable,
-                                    value,
-                                    startIndex,
-                                    deleteCount
-                                  }) => {
-                                    if (!variable) {
-                                      return;
-                                    }
-                                    const { objRoot, variablePath } = variable;
-
-                                    const oldValue = $stateGet(
-                                      objRoot,
-                                      variablePath
-                                    );
-                                    $stateSet(
-                                      objRoot,
-                                      variablePath,
-                                      oldValue + 1
-                                    );
-                                    return oldValue + 1;
-                                  })?.apply(null, [actionArgs]);
                                 })()
-                              : undefined;
-                          if (
-                            $steps["updateCurrentQuestion"] != null &&
-                            typeof $steps["updateCurrentQuestion"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion"] = await $steps[
-                              "updateCurrentQuestion"
-                            ];
-                          }
+                              ]
+                            };
+                            return $globalActions["Fragment.apiRequest"]?.apply(
+                              null,
+                              [...actionArgs.args]
+                            );
+                          })()
+                        : undefined;
+                      if (
+                        $steps["updateCurrentQuestion3"] != null &&
+                        typeof $steps["updateCurrentQuestion3"] === "object" &&
+                        typeof $steps["updateCurrentQuestion3"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion3"] = await $steps[
+                          "updateCurrentQuestion3"
+                        ];
+                      }
+                    }}
+                    onClickYes={async () => {
+                      const $steps = {};
 
-                          $steps["updateCurrentQuestion2"] =
-                            $state.currentQuestion === $ctx.fetchedData.length
-                              ? (() => {
-                                  const actionArgs = {
-                                    variable: {
-                                      objRoot: $state,
-                                      variablePath: ["showResults"]
-                                    },
-                                    operation: 0,
-                                    value: true
-                                  };
-                                  return (({
-                                    variable,
-                                    value,
-                                    startIndex,
-                                    deleteCount
-                                  }) => {
-                                    if (!variable) {
-                                      return;
-                                    }
-                                    const { objRoot, variablePath } = variable;
+                      $steps["updateCurrentQuestion"] =
+                        $state.currentQuestion < $state.questions.length
+                          ? (() => {
+                              const actionArgs = {
+                                variable: {
+                                  objRoot: $state,
+                                  variablePath: ["currentQuestion"]
+                                },
+                                operation: 2
+                              };
+                              return (({
+                                variable,
+                                value,
+                                startIndex,
+                                deleteCount
+                              }) => {
+                                if (!variable) {
+                                  return;
+                                }
+                                const { objRoot, variablePath } = variable;
 
-                                    $stateSet(objRoot, variablePath, value);
-                                    return value;
-                                  })?.apply(null, [actionArgs]);
-                                })()
-                              : undefined;
-                          if (
-                            $steps["updateCurrentQuestion2"] != null &&
-                            typeof $steps["updateCurrentQuestion2"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion2"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion2"] = await $steps[
-                              "updateCurrentQuestion2"
-                            ];
-                          }
+                                const oldValue = $stateGet(
+                                  objRoot,
+                                  variablePath
+                                );
+                                $stateSet(objRoot, variablePath, oldValue + 1);
+                                return oldValue + 1;
+                              })?.apply(null, [actionArgs]);
+                            })()
+                          : undefined;
+                      if (
+                        $steps["updateCurrentQuestion"] != null &&
+                        typeof $steps["updateCurrentQuestion"] === "object" &&
+                        typeof $steps["updateCurrentQuestion"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion"] = await $steps[
+                          "updateCurrentQuestion"
+                        ];
+                      }
 
-                          $steps["updateCurrentQuestion3"] = true
-                            ? (() => {
-                                const actionArgs = {
-                                  dataOp: {
-                                    sourceId: "natkPQpEziVHt8NpLfXm8t",
-                                    opId: "73470207-5573-41be-bab2-736ea1344587",
-                                    userArgs: {
-                                      body: [
-                                        {
-                                          userId: $props.userId,
-                                          test_id: $props.testId,
-                                          question_id: currentItem.question_id,
-                                          answer_id:
-                                            currentItem.answers[0].answer_id
-                                        }
-                                      ]
-                                    },
-                                    cacheKey: null,
-                                    invalidatedKeys: ["plasmic_refresh_all"],
-                                    roleId: null
-                                  }
-                                };
-                                return (async ({ dataOp, continueOnError }) => {
+                      $steps["updateCurrentQuestion2"] =
+                        $state.currentQuestion === $state.questions.length
+                          ? (() => {
+                              const actionArgs = {
+                                variable: {
+                                  objRoot: $state,
+                                  variablePath: ["showResults"]
+                                },
+                                operation: 0,
+                                value: true
+                              };
+                              return (({
+                                variable,
+                                value,
+                                startIndex,
+                                deleteCount
+                              }) => {
+                                if (!variable) {
+                                  return;
+                                }
+                                const { objRoot, variablePath } = variable;
+
+                                $stateSet(objRoot, variablePath, value);
+                                return value;
+                              })?.apply(null, [actionArgs]);
+                            })()
+                          : undefined;
+                      if (
+                        $steps["updateCurrentQuestion2"] != null &&
+                        typeof $steps["updateCurrentQuestion2"] === "object" &&
+                        typeof $steps["updateCurrentQuestion2"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion2"] = await $steps[
+                          "updateCurrentQuestion2"
+                        ];
+                      }
+
+                      $steps["updateCurrentQuestion3"] = true
+                        ? (() => {
+                            const actionArgs = {
+                              args: [
+                                "POST",
+                                "https://n8n-doctorjan.darkube.app/webhook/v1/submitScore",
+                                undefined,
+                                (() => {
                                   try {
-                                    const response = await executePlasmicDataOp(
-                                      dataOp,
-                                      {
-                                        userAuthToken:
-                                          dataSourcesCtx?.userAuthToken,
-                                        user: dataSourcesCtx?.user
-                                      }
-                                    );
-                                    await plasmicInvalidate(
-                                      dataOp.invalidatedKeys
-                                    );
-                                    return response;
+                                    return {
+                                      userId: $props.userId,
+                                      test_id: $props.testId,
+                                      question_id: currentItem.question_id,
+                                      answer_id:
+                                        currentItem.answers[0].answer_id
+                                    };
                                   } catch (e) {
-                                    if (!continueOnError) {
-                                      throw e;
+                                    if (
+                                      e instanceof TypeError ||
+                                      e?.plasmicType ===
+                                        "PlasmicUndefinedDataError"
+                                    ) {
+                                      return undefined;
                                     }
-                                    return e;
+                                    throw e;
                                   }
-                                })?.apply(null, [actionArgs]);
-                              })()
-                            : undefined;
-                          if (
-                            $steps["updateCurrentQuestion3"] != null &&
-                            typeof $steps["updateCurrentQuestion3"] ===
-                              "object" &&
-                            typeof $steps["updateCurrentQuestion3"].then ===
-                              "function"
-                          ) {
-                            $steps["updateCurrentQuestion3"] = await $steps[
-                              "updateCurrentQuestion3"
-                            ];
-                          }
-                        }}
-                        question={(() => {
-                          try {
-                            return currentItem.question_text;
-                          } catch (e) {
-                            if (
-                              e instanceof TypeError ||
-                              e?.plasmicType === "PlasmicUndefinedDataError"
-                            ) {
-                              return undefined;
-                            }
-                            throw e;
-                          }
-                        })()}
-                      />
-                    );
-                  })
-                : null}
+                                })()
+                              ]
+                            };
+                            return $globalActions["Fragment.apiRequest"]?.apply(
+                              null,
+                              [...actionArgs.args]
+                            );
+                          })()
+                        : undefined;
+                      if (
+                        $steps["updateCurrentQuestion3"] != null &&
+                        typeof $steps["updateCurrentQuestion3"] === "object" &&
+                        typeof $steps["updateCurrentQuestion3"].then ===
+                          "function"
+                      ) {
+                        $steps["updateCurrentQuestion3"] = await $steps[
+                          "updateCurrentQuestion3"
+                        ];
+                      }
+                    }}
+                    question={(() => {
+                      try {
+                        return currentItem.question_text;
+                      } catch (e) {
+                        if (
+                          e instanceof TypeError ||
+                          e?.plasmicType === "PlasmicUndefinedDataError"
+                        ) {
+                          return undefined;
+                        }
+                        throw e;
+                      }
+                    })()}
+                  />
+                );
+              })
+            : null}
+          {(() => {
+            try {
+              return !!$state.showResults;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return true;
+              }
+              throw e;
+            }
+          })() ? (
+            <ApiRequest
+              data-plasmic-name={"apiRequest2"}
+              data-plasmic-override={overrides.apiRequest2}
+              className={classNames("__wab_instance", sty.apiRequest2)}
+              errorDisplay={
+                <div
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.__wab_text,
+                    sty.text___8Tu59
+                  )}
+                >
+                  {"Error fetching data"}
+                </div>
+              }
+              loadingDisplay={
+                <div
+                  className={classNames(projectcss.all, sty.freeBox___9DTNz)}
+                >
+                  <div
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.__wab_text,
+                      sty.text__hn6Hq
+                    )}
+                  >
+                    {
+                      "\u0628\u0630\u0627\u0631 \u0628\u0628\u06cc\u0646\u06cc\u0645 \u0628\u0647\u062a \u0627\u0645\u06cc\u062f\u06cc \u0647\u0633\u062a\u061f"
+                    }
+                  </div>
+                  <MotionBlur2SvgIcon
+                    className={classNames(projectcss.all, sty.svg__eClXc)}
+                    role={"img"}
+                  />
+                </div>
+              }
+              method={"GET"}
+              onError={async (...eventArgs: any) => {
+                generateStateOnChangeProp($state, [
+                  "apiRequest2",
+                  "error"
+                ]).apply(null, eventArgs);
+              }}
+              onLoading={async (...eventArgs: any) => {
+                generateStateOnChangeProp($state, [
+                  "apiRequest2",
+                  "loading"
+                ]).apply(null, eventArgs);
+              }}
+              onSuccess={async (...eventArgs: any) => {
+                generateStateOnChangeProp($state, [
+                  "apiRequest2",
+                  "data"
+                ]).apply(null, eventArgs);
+              }}
+              url={(() => {
+                try {
+                  return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
+                } catch (e) {
+                  if (
+                    e instanceof TypeError ||
+                    e?.plasmicType === "PlasmicUndefinedDataError"
+                  ) {
+                    return undefined;
+                  }
+                  throw e;
+                }
+              })()}
+            >
               {(() => {
                 try {
-                  return !!$state.showResults;
+                  return (
+                    !!$state.showResults &&
+                    !!$state.apiRequest2.data[0]?.finalScore
+                  );
                 } catch (e) {
                   if (
                     e instanceof TypeError ||
@@ -651,71 +773,13 @@ function PlasmicQuestions__RenderFunc(props: {
                   throw e;
                 }
               })() ? (
-                <DataFetcher
-                  className={classNames(
-                    "__wab_instance",
-                    sty.httpRestApiFetcher__qucDo
-                  )}
-                  dataName={"scoreData"}
-                  errorDisplay={
-                    <DataCtxReader__>
-                      {$ctx => (
-                        <React.Fragment>
-                          {(() => {
-                            try {
-                              return $ctx.fetchedData[0].error_message;
-                            } catch (e) {
-                              if (
-                                e instanceof TypeError ||
-                                e?.plasmicType === "PlasmicUndefinedDataError"
-                              ) {
-                                return "Error fetching data";
-                              }
-                              throw e;
-                            }
-                          })()}
-                        </React.Fragment>
-                      )}
-                    </DataCtxReader__>
-                  }
-                  errorName={"scoreError"}
-                  loadingDisplay={
-                    <DataCtxReader__>
-                      {$ctx => (
-                        <div
-                          className={classNames(
-                            projectcss.all,
-                            sty.freeBox___9DTNz
-                          )}
-                        >
-                          <div
-                            className={classNames(
-                              projectcss.all,
-                              projectcss.__wab_text,
-                              sty.text__hn6Hq
-                            )}
-                          >
-                            {
-                              "\u0628\u0630\u0627\u0631 \u0628\u0628\u06cc\u0646\u06cc\u0645 \u0628\u0647\u062a \u0627\u0645\u06cc\u062f\u06cc \u0647\u0633\u062a\u061f"
-                            }
-                          </div>
-                          <MotionBlur2SvgIcon
-                            className={classNames(
-                              projectcss.all,
-                              sty.svg__eClXc
-                            )}
-                            role={"img"}
-                          />
-                        </div>
-                      )}
-                    </DataCtxReader__>
-                  }
-                  method={"GET"}
-                  noLayout={false}
-                  previewSpinner={false}
-                  url={(() => {
+                <ShowResult
+                  data-plasmic-name={"showResult"}
+                  data-plasmic-override={overrides.showResult}
+                  className={classNames("__wab_instance", sty.showResult)}
+                  score={(() => {
                     try {
-                      return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}`;
+                      return $state.apiRequest2.data[0].finalScore;
                     } catch (e) {
                       if (
                         e instanceof TypeError ||
@@ -726,62 +790,27 @@ function PlasmicQuestions__RenderFunc(props: {
                       throw e;
                     }
                   })()}
-                >
-                  <DataCtxReader__>
-                    {$ctx =>
-                      (() => {
-                        try {
-                          return (
-                            !!$state.showResults &&
-                            !!$ctx.scoreData[0]?.finalScore
-                          );
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return true;
-                          }
-                          throw e;
-                        }
-                      })() ? (
-                        <ShowResult
-                          data-plasmic-name={"showResult"}
-                          data-plasmic-override={overrides.showResult}
-                          className={classNames(
-                            "__wab_instance",
-                            sty.showResult
-                          )}
-                          score={(() => {
-                            try {
-                              return $ctx.scoreData[0].finalScore;
-                            } catch (e) {
-                              if (
-                                e instanceof TypeError ||
-                                e?.plasmicType === "PlasmicUndefinedDataError"
-                              ) {
-                                return undefined;
-                              }
-                              throw e;
-                            }
-                          })()}
-                        />
-                      ) : null
-                    }
-                  </DataCtxReader__>
-                </DataFetcher>
+                />
               ) : null}
-            </Stack__>
-          )}
-        </DataCtxReader__>
-      </DataFetcher>
+            </ApiRequest>
+          ) : null}
+        </Stack__>
+      </ApiRequest>
     </Stack__>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "questionContainer", "showResult"],
+  root: [
+    "root",
+    "apiRequest",
+    "questionContainer",
+    "apiRequest2",
+    "showResult"
+  ],
+  apiRequest: ["apiRequest", "questionContainer", "apiRequest2", "showResult"],
   questionContainer: ["questionContainer"],
+  apiRequest2: ["apiRequest2", "showResult"],
   showResult: ["showResult"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -789,7 +818,9 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
+  apiRequest: typeof ApiRequest;
   questionContainer: typeof QuestionContainer;
+  apiRequest2: typeof ApiRequest;
   showResult: typeof ShowResult;
 };
 
@@ -853,7 +884,9 @@ export const PlasmicQuestions = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
+    apiRequest: makeNodeComponent("apiRequest"),
     questionContainer: makeNodeComponent("questionContainer"),
+    apiRequest2: makeNodeComponent("apiRequest2"),
     showResult: makeNodeComponent("showResult"),
 
     // Metadata about props expected for PlasmicQuestions
