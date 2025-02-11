@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  margin-top: calc(0px - 1px);
+  height: calc(100% + 1px);
+}
+.root > :global(.__wab_flex-container) > *,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root > :global(.__wab_flex-container) > picture > img,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+  margin-top: 1px;
+}
+.landing:global(.__wab_instance) {
+  max-width: 100%;
+}
+.questions:global(.__wab_instance) {
+  max-width: 100%;
+}
+.questionsFullPage:global(.__wab_instance) {
+  max-width: 100%;
+}

@@ -1,0 +1,48 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  background: #81d4fa;
+  position: relative;
+  border-radius: 8px;
+  padding: 4px;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(0px - 4px);
+  width: calc(100% + 4px);
+}
+.root > :global(.__wab_flex-container) > *,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root > :global(.__wab_flex-container) > picture > img,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+  margin-left: 4px;
+}
+.root:hover {
+  background: #68cfff;
+}
+.root:active {
+  background: #3fc2ff;
+}
+.text {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  color: #c7edff;
+  font-family: "DanaMedium";
+  font-size: 12px;
+  min-width: 0;
+}
+.svg {
+  object-fit: cover;
+  max-width: 100%;
+  width: 6px;
+  color: #c7edff;
+  margin-top: 1px;
+  flex-shrink: 0;
+  height: 1em;
+}

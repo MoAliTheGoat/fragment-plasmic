@@ -1,0 +1,48 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  background: #0288d1;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(0px - 6px);
+  width: calc(100% + 6px);
+}
+.root > :global(.__wab_flex-container) > *,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root > :global(.__wab_flex-container) > picture > img,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+  margin-left: 6px;
+}
+.root:hover {
+  background: #0175b5;
+}
+.root:active {
+  background: #0067a0;
+}
+.svg {
+  object-fit: cover;
+  max-width: 100%;
+  color: #b3e5fc;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.text {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  font-family: "DanaMedium";
+  color: #b3e5fc;
+  user-select: none;
+  font-size: 25px;
+}
