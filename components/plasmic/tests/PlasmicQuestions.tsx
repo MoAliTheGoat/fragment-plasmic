@@ -707,37 +707,33 @@ function PlasmicQuestions__RenderFunc(props: {
                 onClick={async () => {
                   const $steps = {};
 
-                  $steps["updateCurrentQuestion"] = (() => {
-                    return ($state.currentQuestion =
-                      $state.currentQuestion > 0
-                        ? $state.currentQuestion - 1
-                        : 0);
-                  })()
-                    ? (() => {
-                        const actionArgs = {
-                          variable: {
-                            objRoot: $state,
-                            variablePath: ["currentQuestion"]
-                          },
-                          operation: 3
-                        };
-                        return (({
-                          variable,
-                          value,
-                          startIndex,
-                          deleteCount
-                        }) => {
-                          if (!variable) {
-                            return;
-                          }
-                          const { objRoot, variablePath } = variable;
+                  $steps["updateCurrentQuestion"] =
+                    $state.currentQuestion > 0
+                      ? (() => {
+                          const actionArgs = {
+                            variable: {
+                              objRoot: $state,
+                              variablePath: ["currentQuestion"]
+                            },
+                            operation: 3
+                          };
+                          return (({
+                            variable,
+                            value,
+                            startIndex,
+                            deleteCount
+                          }) => {
+                            if (!variable) {
+                              return;
+                            }
+                            const { objRoot, variablePath } = variable;
 
-                          const oldValue = $stateGet(objRoot, variablePath);
-                          $stateSet(objRoot, variablePath, oldValue - 1);
-                          return oldValue - 1;
-                        })?.apply(null, [actionArgs]);
-                      })()
-                    : undefined;
+                            const oldValue = $stateGet(objRoot, variablePath);
+                            $stateSet(objRoot, variablePath, oldValue - 1);
+                            return oldValue - 1;
+                          })?.apply(null, [actionArgs]);
+                        })()
+                      : undefined;
                   if (
                     $steps["updateCurrentQuestion"] != null &&
                     typeof $steps["updateCurrentQuestion"] === "object" &&
