@@ -6,8 +6,7 @@
   height: auto;
   max-width: 100%;
   justify-self: flex-start;
-  background: #e0e0e0;
-  border-radius: 12px;
+  background: none;
   padding: 2px 4px;
 }
 .root > :global(.__wab_flex-container) {
@@ -24,26 +23,38 @@
   margin-left: 4px;
 }
 .root:hover {
-  background: #cdcdcd;
+  background: none;
 }
 .root:active {
-  background: #bbbbbb;
+  background: none;
 }
 .text {
   position: relative;
   width: 100%;
   height: auto;
   max-width: 100%;
-  font-family: "DanaMedium";
-  color: #ffffff;
+  font-family: "VazirMatnLight";
+  color: #cacaca;
   user-select: none;
   white-space: pre;
   min-width: 0;
+}
+.root:hover .text {
+  color: #bababa;
+}
+.root:active .text {
+  color: #afafaf;
 }
 .svg {
   object-fit: cover;
   max-width: 100%;
   width: auto;
   height: 1em;
-  color: #ffffff;
+  color: #cacaca;
+}
+.root:hover .svg {
+  color: #bababa;
+}
+.root:active .svg {
+  color: #afafaf;
 }

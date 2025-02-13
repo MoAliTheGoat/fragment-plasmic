@@ -16,15 +16,12 @@ export interface GlobalContextsProviderProps {
   embedCssProps?: Partial<
     Omit<React.ComponentProps<typeof EmbedCss>, "children">
   >;
-
   fragmentProps?: Partial<
     Omit<React.ComponentProps<typeof Fragment>, "children">
   >;
-
   growthBookProps?: Partial<
     Omit<React.ComponentProps<typeof GrowthBook>, "children">
   >;
-
   splunkProps?: Partial<Omit<React.ComponentProps<typeof Splunk>, "children">>;
 }
 
@@ -45,7 +42,7 @@ export default function GlobalContextsProvider(
       css={
         embedCssProps && "css" in embedCssProps
           ? embedCssProps.css!
-          : "@font-face {\n  font-family: 'DanaBlack';\n  src: url('https://site-assets.plasmic.app/db68fbf4dd134681f703b077ea227afd.ttf');\n}\n\n@font-face {\n  font-family: 'DanaMedium';\n  src: url('https://site-assets.plasmic.app/82abca3cbd2d19c236a673f85778ac78.ttf');\n}\n\n@font-face {\n  font-family: 'DanaLight';\n  src: url('https://site-assets.plasmic.app/a50fc4365bc5f3b9a160e707f9f1a2b4.ttf');\n}\n\n@font-face {\n  font-family: 'DanaBold';\n  src: url('https://site-assets.plasmic.app/87d824745e8855753d71bf9637a45891.ttf');\n}\n\n@font-face {\n  font-family: 'IranSansXRegular';\n  src: url('https://site-assets.plasmic.app/32e900508cd1f6220303f167f032df1f.ttf');\n}\n\n@font-face {\n  font-family: 'IranSansXBold';\n  src: url('https://site-assets.plasmic.app/f3942a4d1852bd1e5c557c0d2f1c9e53.ttf');\n}"
+          : "@font-face {\n  font-family: 'DanaBlack';\n  src: url('https://site-assets.plasmic.app/db68fbf4dd134681f703b077ea227afd.ttf');\n}\n\n@font-face {\n  font-family: 'DanaMedium';\n  src: url('https://site-assets.plasmic.app/82abca3cbd2d19c236a673f85778ac78.ttf');\n}\n\n@font-face {\n  font-family: 'DanaLight';\n  src: url('https://site-assets.plasmic.app/a50fc4365bc5f3b9a160e707f9f1a2b4.ttf');\n}\n\n@font-face {\n  font-family: 'DanaBold';\n  src: url('https://site-assets.plasmic.app/87d824745e8855753d71bf9637a45891.ttf');\n}\n\n@font-face {\n  font-family: 'IranSansXRegular';\n  src: url('https://site-assets.plasmic.app/32e900508cd1f6220303f167f032df1f.ttf');\n}\n\n@font-face {\n  font-family: 'IranSansXBold';\n  src: url('https://site-assets.plasmic.app/f3942a4d1852bd1e5c557c0d2f1c9e53.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnExtraBold';\n  src: url('https://site-assets.plasmic.app/9905e2b93ff5f29483160f5be5fa257a.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnBold';\n  src: url('https://site-assets.plasmic.app/bd15d620dfe894e8e010b22aea65b9c8.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnMedium';\n  src: url('https://site-assets.plasmic.app/f7ec8fd8e6e0dce10ce48878ee55996c.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnBlack';\n  src: url('https://site-assets.plasmic.app/6e02ae513d8e95f28083b81a4dccb3ee.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnRegular';\n  src: url('https://site-assets.plasmic.app/3a19ae29625016df64e345ffaf6e6bd7.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnLight';\n  src: url('https://site-assets.plasmic.app/2a54f36e7585e8559516f51d9fa9eba3.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnExtraLight';\n  src: url('https://site-assets.plasmic.app/0bf1c064f261051f29119426da6f5b79.ttf');\n}\n\n@font-face {\n  font-family: 'VazirMatnSemiBold';\n  src: url('https://site-assets.plasmic.app/bd15d620dfe894e8e010b22aea65b9c8.ttf');\n}"
       }
     >
       <Fragment

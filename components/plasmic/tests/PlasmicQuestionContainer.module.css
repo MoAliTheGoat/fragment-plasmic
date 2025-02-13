@@ -8,7 +8,7 @@
   height: auto;
   max-width: 100%;
   background: #b3e5fc;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 8px;
 }
 .freeBox__av9Sf {
@@ -19,6 +19,7 @@
   max-width: 100%;
   background: none;
   min-width: 0;
+  padding: 8px;
 }
 .freeBox__av9Sf > :global(.__wab_flex-container) {
   flex-direction: column;
@@ -43,7 +44,7 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  font-family: "DanaBold";
+  font-family: "VazirMatnBlack";
   font-weight: 500;
   color: #0288d1;
   text-align: center;
@@ -87,5 +88,6 @@
 .yesButtonQuestionContainer:global(.__wab_instance) {
   position: relative;
   width: 100px;
+  height: 60px;
   flex-shrink: 0;
 }

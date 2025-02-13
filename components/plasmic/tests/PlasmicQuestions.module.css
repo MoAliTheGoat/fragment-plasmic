@@ -72,12 +72,13 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  font-family: "DanaMedium";
+  font-family: "VazirMatnMedium";
   font-weight: 500;
   color: #e0e0e0;
   text-align: center;
   font-size: 15px;
   user-select: none;
+  padding-top: 0px;
 }
 .freeBox__oeLd {
   display: flex;

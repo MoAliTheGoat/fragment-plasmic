@@ -7,8 +7,8 @@
   background: #0288d1;
   cursor: pointer;
   position: relative;
-  border-radius: 8px;
-  padding: 2px 8px;
+  border-radius: 15px;
+  padding: 8px;
 }
 .root > :global(.__wab_flex-container) {
   flex-direction: row;
@@ -33,16 +33,16 @@
   object-fit: cover;
   max-width: 100%;
   color: #b3e5fc;
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
   flex-shrink: 0;
 }
 .text {
   width: auto;
   height: auto;
   max-width: 100%;
-  font-family: "DanaMedium";
+  font-family: "VazirMatnSemiBold";
   color: #b3e5fc;
   user-select: none;
-  font-size: 25px;
+  font-size: 28px;
 }
