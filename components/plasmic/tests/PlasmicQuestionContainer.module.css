@@ -4,26 +4,27 @@
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 300px;
   height: auto;
   max-width: 100%;
   background: #b3e5fc;
-  min-width: 0;
   border-radius: 8px;
   padding: 8px;
 }
 .freeBox__av9Sf {
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 100%;
   height: auto;
   max-width: 100%;
   background: none;
+  min-width: 0;
 }
 .freeBox__av9Sf > :global(.__wab_flex-container) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 0;
   margin-top: calc(0px - 12px);
   height: calc(100% + 12px);
 }
@@ -61,11 +62,12 @@
 }
 .freeBox__q1Wek > :global(.__wab_flex-container) {
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+  flex-wrap: wrap;
   min-width: 0;
-  margin-left: calc(0px - 20px);
-  width: calc(100% + 20px);
+  margin-left: calc(0px - 50px);
+  width: calc(100% + 50px);
 }
 .freeBox__q1Wek > :global(.__wab_flex-container) > *,
 .freeBox__q1Wek > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
@@ -75,11 +77,15 @@
   > :global(.__wab_slot)
   > picture
   > img {
-  margin-left: 20px;
+  margin-left: 50px;
 }
 .noButtonQuestionContainer:global(.__wab_instance) {
   position: relative;
+  width: 100px;
+  flex-shrink: 0;
 }
 .yesButtonQuestionContainer:global(.__wab_instance) {
   position: relative;
+  width: 100px;
+  flex-shrink: 0;
 }

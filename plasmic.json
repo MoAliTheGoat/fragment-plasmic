@@ -445,6 +445,19 @@
           "scheme": "blackbox",
           "componentType": "page",
           "path": "/"
+        },
+        {
+          "id": "vgie_seeuj1v",
+          "name": "PreviousQuestionButton",
+          "type": "managed",
+          "projectId": "fy2Wd7JJUEGBqb9w6rWnVF",
+          "renderModuleFilePath": "plasmic/tests/PlasmicPreviousQuestionButton.tsx",
+          "importSpec": {
+            "modulePath": "PreviousQuestionButton.tsx"
+          },
+          "cssFilePath": "plasmic/tests/PlasmicPreviousQuestionButton.module.css",
+          "scheme": "blackbox",
+          "componentType": "component"
         }
       ],
       "icons": [
@@ -507,6 +520,11 @@
           "id": "yqCN6Pcr5d93",
           "name": "LinkedinSvgIcon",
           "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__LinkedinSvg.tsx"
+        },
+        {
+          "id": "K2tO_THqiWhu",
+          "name": "CircleChevronRightSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__CircleChevronRightSolidSvg.tsx"
         }
       ],
       "images": [

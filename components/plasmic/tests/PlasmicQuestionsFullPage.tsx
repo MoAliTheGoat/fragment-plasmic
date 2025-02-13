@@ -162,12 +162,6 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
 
         valueProp: "selectedTestId",
         onChangeProp: "onSelectedTestIdChange"
-      },
-      {
-        path: "questions.questions",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -244,20 +238,6 @@ function PlasmicQuestionsFullPage__RenderFunc(props: {
               generateStateOnChangeProp($state, [
                 "questions",
                 "currentQuestion"
-              ]).apply(null, eventArgs);
-
-              if (
-                eventArgs.length > 1 &&
-                eventArgs[1] &&
-                eventArgs[1]._plasmic_state_init_
-              ) {
-                return;
-              }
-            }}
-            onQuestionsChange={async (...eventArgs: any) => {
-              generateStateOnChangeProp($state, [
-                "questions",
-                "questions"
               ]).apply(null, eventArgs);
 
               if (

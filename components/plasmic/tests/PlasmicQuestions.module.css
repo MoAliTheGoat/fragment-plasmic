@@ -79,9 +79,41 @@
   font-size: 15px;
   user-select: none;
 }
-.questionContainer:global(.__wab_instance) {
-  width: auto;
+.freeBox__oeLd {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
   height: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+}
+.freeBox__oeLd > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 0;
+  margin-top: calc(0px - 12px);
+  height: calc(100% + 12px);
+}
+.freeBox__oeLd > :global(.__wab_flex-container) > *,
+.freeBox__oeLd > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__oeLd > :global(.__wab_flex-container) > picture > img,
+.freeBox__oeLd
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 12px;
+}
+.questionContainer:global(.__wab_instance) {
+  width: 300px;
+  height: 100%;
+  min-height: 0;
+}
+.previousQuestionButton:global(.__wab_instance) {
+  max-width: 100%;
 }
 .apiRequest2:global(.__wab_instance) {
   max-width: 100%;
