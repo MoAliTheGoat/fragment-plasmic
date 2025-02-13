@@ -64,6 +64,8 @@ import "@plasmicapp/react-web/lib/plasmic.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: fy2Wd7JJUEGBqb9w6rWnVF/projectcss
 import sty from "./PlasmicShowResult.module.css"; // plasmic-import: arB8QBSjXWbu/css
 
+import PagelinesBrandsSolidSvgIcon from "./icons/PlasmicIcon__PagelinesBrandsSolidSvg"; // plasmic-import: _uty2fRM4lLO/icon
+
 createPlasmicElementProxy;
 
 export type PlasmicShowResult__VariantMembers = {};
@@ -79,8 +81,8 @@ export const PlasmicShowResult__ArgProps = new Array<ArgPropType>("score");
 
 export type PlasmicShowResult__OverridesType = {
   root?: Flex__<"div">;
-  freeBox?: Flex__<"div">;
   text?: Flex__<"div">;
+  svg?: Flex__<"svg">;
 };
 
 export interface DefaultShowResultProps {
@@ -143,55 +145,65 @@ function PlasmicShowResult__RenderFunc(props: {
     >
       <Stack__
         as={"div"}
-        data-plasmic-name={"freeBox"}
-        data-plasmic-override={overrides.freeBox}
         hasGap={true}
-        className={classNames(projectcss.all, sty.freeBox)}
+        className={classNames(projectcss.all, sty.freeBox__ycbHp)}
       >
-        <div
-          data-plasmic-name={"text"}
-          data-plasmic-override={overrides.text}
-          className={classNames(
-            projectcss.all,
-            projectcss.__wab_text,
-            sty.text
-          )}
+        <Stack__
+          as={"div"}
+          hasGap={true}
+          className={classNames(projectcss.all, sty.freeBox__qelmz)}
         >
-          <React.Fragment>
-            {(() => {
-              try {
-                return (
-                  "عمر تخمینی شما" + " " + $props.score + " " + "سال می‌باشد"
-                );
-              } catch (e) {
-                if (
-                  e instanceof TypeError ||
-                  e?.plasmicType === "PlasmicUndefinedDataError"
-                ) {
-                  return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
+          <div
+            data-plasmic-name={"text"}
+            data-plasmic-override={overrides.text}
+            className={classNames(
+              projectcss.all,
+              projectcss.__wab_text,
+              sty.text
+            )}
+          >
+            <React.Fragment>
+              {(() => {
+                try {
+                  return (
+                    "عمر تخمینی شما" + " " + $props.score + " " + "سال می‌باشد"
+                  );
+                } catch (e) {
+                  if (
+                    e instanceof TypeError ||
+                    e?.plasmicType === "PlasmicUndefinedDataError"
+                  ) {
+                    return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
+                  }
+                  throw e;
                 }
-                throw e;
-              }
-            })()}
-          </React.Fragment>
-        </div>
+              })()}
+            </React.Fragment>
+          </div>
+          <PagelinesBrandsSolidSvgIcon
+            data-plasmic-name={"svg"}
+            data-plasmic-override={overrides.svg}
+            className={classNames(projectcss.all, sty.svg)}
+            role={"img"}
+          />
+        </Stack__>
       </Stack__>
     </div>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "freeBox", "text"],
-  freeBox: ["freeBox", "text"],
-  text: ["text"]
+  root: ["root", "text", "svg"],
+  text: ["text"],
+  svg: ["svg"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  freeBox: "div";
   text: "div";
+  svg: "svg";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -254,8 +266,8 @@ export const PlasmicShowResult = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    freeBox: makeNodeComponent("freeBox"),
     text: makeNodeComponent("text"),
+    svg: makeNodeComponent("svg"),
 
     // Metadata about props expected for PlasmicShowResult
     internalVariantProps: PlasmicShowResult__VariantProps,

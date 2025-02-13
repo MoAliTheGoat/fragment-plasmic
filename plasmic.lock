@@ -100,12 +100,12 @@
         {
           "type": "renderModule",
           "assetId": "arB8QBSjXWbu",
-          "checksum": "1da72af95d21d0f686ca91ae0cf2f36f"
+          "checksum": "681383154aa3a9cf6cdbf9b7293109e6"
         },
         {
           "type": "cssRules",
           "assetId": "arB8QBSjXWbu",
-          "checksum": "1da72af95d21d0f686ca91ae0cf2f36f"
+          "checksum": "681383154aa3a9cf6cdbf9b7293109e6"
         },
         {
           "type": "renderModule",
@@ -446,6 +446,11 @@
           "assetId": "fy2Wd7JJUEGBqb9w6rWnVF",
           "type": "projectCss",
           "checksum": "02b2d848f2268cc70941047e3b6713de"
+        },
+        {
+          "type": "icon",
+          "assetId": "_uty2fRM4lLO",
+          "checksum": "82738e2ade92d8f30931d74bfbee627d"
         }
       ],
       "codegenVersion": "0.0.1"

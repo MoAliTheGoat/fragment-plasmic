@@ -525,6 +525,11 @@
           "id": "K2tO_THqiWhu",
           "name": "CircleChevronRightSolidSvgIcon",
           "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__CircleChevronRightSolidSvg.tsx"
+        },
+        {
+          "id": "_uty2fRM4lLO",
+          "name": "PagelinesBrandsSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__PagelinesBrandsSolidSvg.tsx"
         }
       ],
       "images": [

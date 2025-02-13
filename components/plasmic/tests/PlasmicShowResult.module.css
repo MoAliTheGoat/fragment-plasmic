@@ -8,42 +8,79 @@
   align-items: center;
   justify-self: flex-start;
 }
-.freeBox {
+.freeBox__ycbHp {
   display: flex;
   flex-direction: column;
-  width: auto;
-  height: auto;
+  width: 300px;
+  height: 100px;
   max-width: 100%;
   background: #0079bb;
   position: relative;
+  flex-shrink: 0;
   border-radius: 8px;
-  padding: 4px;
+  padding: 8px;
 }
-.freeBox > :global(.__wab_flex-container) {
+.freeBox__ycbHp > :global(.__wab_flex-container) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: calc(0px - 4px);
   height: calc(100% + 4px);
 }
-.freeBox > :global(.__wab_flex-container) > *,
-.freeBox > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
-.freeBox > :global(.__wab_flex-container) > picture > img,
-.freeBox
+.freeBox__ycbHp > :global(.__wab_flex-container) > *,
+.freeBox__ycbHp > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__ycbHp > :global(.__wab_flex-container) > picture > img,
+.freeBox__ycbHp
   > :global(.__wab_flex-container)
   > :global(.__wab_slot)
   > picture
   > img {
   margin-top: 4px;
 }
+.freeBox__qelmz {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+}
+.freeBox__qelmz > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin-left: calc(0px - 8px);
+  width: calc(100% + 8px);
+}
+.freeBox__qelmz > :global(.__wab_flex-container) > *,
+.freeBox__qelmz > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__qelmz > :global(.__wab_flex-container) > picture > img,
+.freeBox__qelmz
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 8px;
+}
 .text {
   position: relative;
   width: auto;
   height: auto;
   max-width: 100%;
-  font-family: "DanaBlack";
+  font-family: "VazirMatnBlack";
   font-weight: 500;
   color: #b3e5fc;
   text-align: center;
-  font-size: 25px;
+  font-size: 28px;
+}
+.svg {
+  object-fit: cover;
+  max-width: 100%;
+  width: auto;
+  height: 100%;
+  color: #b3e5fc;
+  min-height: 0;
 }
