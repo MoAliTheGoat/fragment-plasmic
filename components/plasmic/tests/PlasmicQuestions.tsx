@@ -833,9 +833,7 @@ function PlasmicQuestions__RenderFunc(props: {
                 try {
                   return (
                     !!$state.showResults &&
-                    !!$state.apiRequest2.data[0]?.finalScore &&
-                    $state.apiRequest2.data[0].currentCount ==
-                      $state.apiRequest2.data[0].actualCount
+                    !!$state.apiRequest2.data[0]?.finalScore
                   );
                 } catch (e) {
                   if (
