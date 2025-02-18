@@ -60,7 +60,6 @@ import {
 } from "@plasmicapp/react-web/lib/host";
 
 import SelectTestPage from "../../SelectTestPage"; // plasmic-import: NS5HItibdY0W/component
-import { Embed } from "@plasmicpkgs/plasmic-basic-components";
 
 import "@plasmicapp/react-web/lib/plasmic.css";
 
@@ -81,7 +80,6 @@ export const PlasmicHome__ArgProps = new Array<ArgPropType>();
 export type PlasmicHome__OverridesType = {
   root?: Flex__<"div">;
   selectTestPage?: Flex__<typeof SelectTestPage>;
-  clarity?: Flex__<typeof Embed>;
 };
 
 export interface DefaultHomeProps {}
@@ -193,15 +191,6 @@ function PlasmicHome__RenderFunc(props: {
               }
             })()}
           />
-
-          <Embed
-            data-plasmic-name={"clarity"}
-            data-plasmic-override={overrides.clarity}
-            className={classNames("__wab_instance", sty.clarity)}
-            code={
-              '<script type="text/javascript">\n    (function(c,l,a,r,i,t,y){\n        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\n        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;\n        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\n    })(window, document, "clarity", "script", "qbzbyqol6v");\n</script>'
-            }
-          />
         </div>
       </div>
     </React.Fragment>
@@ -209,9 +198,8 @@ function PlasmicHome__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "selectTestPage", "clarity"],
-  selectTestPage: ["selectTestPage"],
-  clarity: ["clarity"]
+  root: ["root", "selectTestPage"],
+  selectTestPage: ["selectTestPage"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -219,7 +207,6 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   selectTestPage: typeof SelectTestPage;
-  clarity: typeof Embed;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -283,7 +270,6 @@ export const PlasmicHome = Object.assign(
   {
     // Helper components rendering sub-elements
     selectTestPage: makeNodeComponent("selectTestPage"),
-    clarity: makeNodeComponent("clarity"),
 
     // Metadata about props expected for PlasmicHome
     internalVariantProps: PlasmicHome__VariantProps,
