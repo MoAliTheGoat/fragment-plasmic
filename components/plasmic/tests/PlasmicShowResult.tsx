@@ -81,6 +81,7 @@ export const PlasmicShowResult__ArgProps = new Array<ArgPropType>("score");
 
 export type PlasmicShowResult__OverridesType = {
   root?: Flex__<"div">;
+  freeBox?: Flex__<"div">;
   text?: Flex__<"div">;
   svg?: Flex__<"svg">;
 };
@@ -145,55 +146,52 @@ function PlasmicShowResult__RenderFunc(props: {
     >
       <Stack__
         as={"div"}
+        data-plasmic-name={"freeBox"}
+        data-plasmic-override={overrides.freeBox}
         hasGap={true}
-        className={classNames(projectcss.all, sty.freeBox__ycbHp)}
+        className={classNames(projectcss.all, sty.freeBox)}
       >
-        <Stack__
-          as={"div"}
-          hasGap={true}
-          className={classNames(projectcss.all, sty.freeBox__qelmz)}
+        <div
+          data-plasmic-name={"text"}
+          data-plasmic-override={overrides.text}
+          className={classNames(
+            projectcss.all,
+            projectcss.__wab_text,
+            sty.text
+          )}
         >
-          <div
-            data-plasmic-name={"text"}
-            data-plasmic-override={overrides.text}
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text
-            )}
-          >
-            <React.Fragment>
-              {(() => {
-                try {
-                  return (
-                    "عمر تخمینی شما" + " " + $props.score + " " + "سال می‌باشد"
-                  );
-                } catch (e) {
-                  if (
-                    e instanceof TypeError ||
-                    e?.plasmicType === "PlasmicUndefinedDataError"
-                  ) {
-                    return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
-                  }
-                  throw e;
+          <React.Fragment>
+            {(() => {
+              try {
+                return (
+                  "عمر تخمینی شما" + " " + $props.score + " " + "سال می‌باشد"
+                );
+              } catch (e) {
+                if (
+                  e instanceof TypeError ||
+                  e?.plasmicType === "PlasmicUndefinedDataError"
+                ) {
+                  return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
                 }
-              })()}
-            </React.Fragment>
-          </div>
-          <PagelinesBrandsSolidSvgIcon
-            data-plasmic-name={"svg"}
-            data-plasmic-override={overrides.svg}
-            className={classNames(projectcss.all, sty.svg)}
-            role={"img"}
-          />
-        </Stack__>
+                throw e;
+              }
+            })()}
+          </React.Fragment>
+        </div>
+        <PagelinesBrandsSolidSvgIcon
+          data-plasmic-name={"svg"}
+          data-plasmic-override={overrides.svg}
+          className={classNames(projectcss.all, sty.svg)}
+          role={"img"}
+        />
       </Stack__>
     </div>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "text", "svg"],
+  root: ["root", "freeBox", "text", "svg"],
+  freeBox: ["freeBox", "text", "svg"],
   text: ["text"],
   svg: ["svg"]
 } as const;
@@ -202,6 +200,7 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
+  freeBox: "div";
   text: "div";
   svg: "svg";
 };
@@ -266,6 +265,7 @@ export const PlasmicShowResult = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
+    freeBox: makeNodeComponent("freeBox"),
     text: makeNodeComponent("text"),
     svg: makeNodeComponent("svg"),
 

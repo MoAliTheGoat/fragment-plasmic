@@ -1,0 +1,157 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+  justify-content: flex-start;
+  align-items: center;
+  justify-self: flex-start;
+  background: #0288d1;
+  border-radius: 15px;
+}
+.freeBox___64Gs2 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
+  background: #b3e5fc;
+  flex-shrink: 0;
+  border-radius: 15px;
+  padding: 8px;
+}
+.freeBox___64Gs2 > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: calc(0px - 8px);
+  height: calc(100% + 8px);
+}
+.freeBox___64Gs2 > :global(.__wab_flex-container) > *,
+.freeBox___64Gs2 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox___64Gs2 > :global(.__wab_flex-container) > picture > img,
+.freeBox___64Gs2
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 8px;
+}
+.freeBox__pugNc {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin-right: 0px;
+}
+.freeBox__pugNc > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(0px - 8px);
+  width: calc(100% + 8px);
+}
+.freeBox__pugNc > :global(.__wab_flex-container) > *,
+.freeBox__pugNc > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__pugNc > :global(.__wab_flex-container) > picture > img,
+.freeBox__pugNc
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 8px;
+}
+.text__ieemW {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  font-family: "VazirMatnBlack";
+  font-size: 40px;
+  color: #0288d1;
+}
+.svg__bacun {
+  object-fit: cover;
+  max-width: 100%;
+  color: #0288d1;
+  width: auto;
+  height: 30px;
+  margin-bottom: 5px;
+}
+.svg__w7BsS {
+  object-fit: cover;
+  max-width: 100%;
+  color: #0288d1;
+  width: auto;
+  height: 30px;
+  margin-bottom: 5px;
+}
+.text__xyX74 {
+  width: 100px;
+  max-width: 100%;
+  text-align: center;
+  font-family: "VazirMatnMedium";
+  color: #29b6f6;
+  position: relative;
+  height: 1px;
+  flex-shrink: 0;
+  border: 0.5px solid #0288d180;
+}
+.text__zdZyk {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  text-align: center;
+  font-family: "VazirMatnMedium";
+  color: #0288d1b3;
+  font-size: 15px;
+  padding: 8px;
+}
+.freeBox__dlJ2T {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
+}
+.freeBox__dlJ2T > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin-left: calc(0px - 8px);
+  width: calc(100% + 8px);
+}
+.freeBox__dlJ2T > :global(.__wab_flex-container) > *,
+.freeBox__dlJ2T > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__dlJ2T > :global(.__wab_flex-container) > picture > img,
+.freeBox__dlJ2T
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 8px;
+}
+.text__byKg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  text-align: left;
+  font-family: "VazirMatnMedium";
+  color: #b3e5fc;
+}
+.text__hY4WV {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  text-align: right;
+  font-family: "VazirMatnRegular";
+  color: #80d6fd;
+}

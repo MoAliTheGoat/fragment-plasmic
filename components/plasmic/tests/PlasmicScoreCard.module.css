@@ -1,0 +1,218 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+  justify-self: flex-start;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: calc(0px - 12px);
+  height: calc(100% + 12px);
+}
+.root > :global(.__wab_flex-container) > *,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root > :global(.__wab_flex-container) > picture > img,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+  margin-top: 12px;
+}
+.apiRequest:global(.__wab_instance) {
+  max-width: 100%;
+  object-fit: cover;
+}
+.svg__gB2T {
+  object-fit: cover;
+  max-width: 100%;
+  color: #0288d1;
+  width: 100%;
+  height: 40px;
+  min-width: 0;
+}
+.text__q1AfL {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+.freeBox___87QyH {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: 12px;
+}
+.freeBox___87QyH > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  margin-top: calc(0px - 12px);
+  height: calc(100% + 12px);
+}
+.freeBox___87QyH > :global(.__wab_flex-container) > *,
+.freeBox___87QyH > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox___87QyH > :global(.__wab_flex-container) > picture > img,
+.freeBox___87QyH
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 12px;
+}
+.text__gXvVc {
+  width: 200px;
+  max-width: 100%;
+  text-align: center;
+  font-family: "VazirMatnMedium";
+  color: #29b6f6;
+  position: relative;
+  height: 1px;
+  flex-shrink: 0;
+  border: 0.5px solid #0288d180;
+}
+.freeBox__tmDw3 {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  height: 100%;
+  max-width: 100%;
+  background: none;
+  min-height: 0;
+  padding: 8px;
+}
+.freeBox__tmDw3 > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 0;
+  margin-left: calc(0px - 8px);
+  width: calc(100% + 8px);
+}
+.freeBox__tmDw3 > :global(.__wab_flex-container) > *,
+.freeBox__tmDw3 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__tmDw3 > :global(.__wab_flex-container) > picture > img,
+.freeBox__tmDw3
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 8px;
+}
+.text__gw3V7 {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  text-align: right;
+  font-family: "VazirMatnBlack";
+  color: #0288d1;
+  font-size: 22px;
+}
+.svg__qr3S7 {
+  object-fit: cover;
+  max-width: 100%;
+  color: #0288d1;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.scoreCardContainer__npqdg:global(.__wab_instance) {
+  max-width: 100%;
+}
+.freeBox__rK7Rk {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: 12px;
+}
+.freeBox__rK7Rk > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  margin-top: calc(0px - 12px);
+  height: calc(100% + 12px);
+}
+.freeBox__rK7Rk > :global(.__wab_flex-container) > *,
+.freeBox__rK7Rk > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__rK7Rk > :global(.__wab_flex-container) > picture > img,
+.freeBox__rK7Rk
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 12px;
+}
+.text__qcaqR {
+  width: 200px;
+  max-width: 100%;
+  text-align: center;
+  font-family: "VazirMatnMedium";
+  color: #29b6f6;
+  position: relative;
+  height: 1px;
+  flex-shrink: 0;
+  border: 0.5px solid #0288d180;
+}
+.freeBox__ggAxh {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  height: 100%;
+  max-width: 100%;
+  background: none;
+  min-height: 0;
+  padding: 8px;
+}
+.freeBox__ggAxh > :global(.__wab_flex-container) {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 0;
+  margin-left: calc(0px - 8px);
+  width: calc(100% + 8px);
+}
+.freeBox__ggAxh > :global(.__wab_flex-container) > *,
+.freeBox__ggAxh > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.freeBox__ggAxh > :global(.__wab_flex-container) > picture > img,
+.freeBox__ggAxh
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 8px;
+}
+.text__o71R7 {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  text-align: right;
+  font-family: "VazirMatnBlack";
+  color: #0288d1;
+  font-size: 22px;
+}
+.svg__ohJb6 {
+  object-fit: cover;
+  max-width: 100%;
+  color: #0288d1;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 2px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.scoreCardContainer__alstm:global(.__wab_instance) {
+  max-width: 100%;
+}

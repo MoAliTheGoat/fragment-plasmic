@@ -458,6 +458,32 @@
           "cssFilePath": "plasmic/tests/PlasmicPreviousQuestionButton.module.css",
           "scheme": "blackbox",
           "componentType": "component"
+        },
+        {
+          "id": "fDBcVoWbGgMw",
+          "name": "ScoreCardContainer",
+          "type": "managed",
+          "projectId": "fy2Wd7JJUEGBqb9w6rWnVF",
+          "renderModuleFilePath": "plasmic/tests/PlasmicScoreCardContainer.tsx",
+          "importSpec": {
+            "modulePath": "ScoreCardContainer.tsx"
+          },
+          "cssFilePath": "plasmic/tests/PlasmicScoreCardContainer.module.css",
+          "scheme": "blackbox",
+          "componentType": "component"
+        },
+        {
+          "id": "0gav2D2th5XT",
+          "name": "ScoreCard",
+          "type": "managed",
+          "projectId": "fy2Wd7JJUEGBqb9w6rWnVF",
+          "renderModuleFilePath": "plasmic/tests/PlasmicScoreCard.tsx",
+          "importSpec": {
+            "modulePath": "ScoreCard.tsx"
+          },
+          "cssFilePath": "plasmic/tests/PlasmicScoreCard.module.css",
+          "scheme": "blackbox",
+          "componentType": "component"
         }
       ],
       "icons": [
@@ -530,6 +556,51 @@
           "id": "_uty2fRM4lLO",
           "name": "PagelinesBrandsSolidSvgIcon",
           "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__PagelinesBrandsSolidSvg.tsx"
+        },
+        {
+          "id": "Qh5kdFnMkdp7",
+          "name": "CircleSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__CircleSolidSvg.tsx"
+        },
+        {
+          "id": "e6hg-wAWgBQX",
+          "name": "UserSolid1SvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__UserSolid1Svg.tsx"
+        },
+        {
+          "id": "9t22IErXFq8q",
+          "name": "PenSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__PenSolidSvg.tsx"
+        },
+        {
+          "id": "_EubhsmzPB3g",
+          "name": "HorizontalLineSvgrepoComSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__HorizontalLineSvgrepoComSvg.tsx"
+        },
+        {
+          "id": "JRheyVWzHC4V",
+          "name": "FaceFrownRegular1SvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__FaceFrownRegular1Svg.tsx"
+        },
+        {
+          "id": "xAxs3sX5qHJj",
+          "name": "FaceSmileRegular1SvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__FaceSmileRegular1Svg.tsx"
+        },
+        {
+          "id": "n4sOLp70jmcP",
+          "name": "CirclePlusSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__CirclePlusSolidSvg.tsx"
+        },
+        {
+          "id": "8Dpypa1bPe8Q",
+          "name": "CircleMinusSolidSvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__CircleMinusSolidSvg.tsx"
+        },
+        {
+          "id": "C3UBcoIYhb-n",
+          "name": "XmarkSolid2SvgIcon",
+          "moduleFilePath": "plasmic/tests/icons/PlasmicIcon__XmarkSolid2Svg.tsx"
         }
       ],
       "images": [

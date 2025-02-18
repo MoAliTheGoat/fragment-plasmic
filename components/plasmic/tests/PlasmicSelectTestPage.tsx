@@ -193,6 +193,12 @@ function PlasmicSelectTestPage__RenderFunc(props: {
               throw e;
             }
           })()
+      },
+      {
+        path: "questions.existingAnswer",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -305,6 +311,20 @@ function PlasmicSelectTestPage__RenderFunc(props: {
             generateStateOnChangeProp($state, [
               "questions",
               "currentQuestion"
+            ]).apply(null, eventArgs);
+
+            if (
+              eventArgs.length > 1 &&
+              eventArgs[1] &&
+              eventArgs[1]._plasmic_state_init_
+            ) {
+              return;
+            }
+          }}
+          onExistingAnswerChange={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, [
+              "questions",
+              "existingAnswer"
             ]).apply(null, eventArgs);
 
             if (

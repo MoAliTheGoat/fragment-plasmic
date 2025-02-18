@@ -63,6 +63,7 @@ import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-impor
 import QuestionContainer from "../../QuestionContainer"; // plasmic-import: dUNsHrAjueyS/component
 import PreviousQuestionButton from "../../PreviousQuestionButton"; // plasmic-import: vgie_seeuj1v/component
 import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
+import ScoreCard from "../../ScoreCard"; // plasmic-import: 0gav2D2th5XT/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
 
@@ -70,6 +71,8 @@ import projectcss from "./plasmic.module.css"; // plasmic-import: fy2Wd7JJUEGBqb
 import sty from "./PlasmicQuestions.module.css"; // plasmic-import: El_QD23x2som/css
 
 import MotionBlur2SvgIcon from "./icons/PlasmicIcon__MotionBlur2Svg"; // plasmic-import: U318mCBIhz8C/icon
+import XmarkSolid2SvgIcon from "./icons/PlasmicIcon__XmarkSolid2Svg"; // plasmic-import: C3UBcoIYhb-n/icon
+import ChevronLeftSolid4SvgIcon from "./icons/PlasmicIcon__ChevronLeftSolid4Svg"; // plasmic-import: pzLGb4DZmfkD/icon
 
 createPlasmicElementProxy;
 
@@ -83,22 +86,27 @@ export type PlasmicQuestions__ArgsType = {
   userId?: string;
   onShowResultsChange?: (val: string) => void;
   testId?: number;
+  onExistingAnswerChange?: (val: string) => void;
 };
 type ArgPropType = keyof PlasmicQuestions__ArgsType;
 export const PlasmicQuestions__ArgProps = new Array<ArgPropType>(
   "onCurrentQuestionChange",
   "userId",
   "onShowResultsChange",
-  "testId"
+  "testId",
+  "onExistingAnswerChange"
 );
 
 export type PlasmicQuestions__OverridesType = {
   root?: Flex__<"div">;
+  apiRequest3?: Flex__<typeof ApiRequest>;
+  existingResponse?: Flex__<"div">;
   apiRequest?: Flex__<typeof ApiRequest>;
   questionContainer?: Flex__<typeof QuestionContainer>;
   previousQuestionButton?: Flex__<typeof PreviousQuestionButton>;
   apiRequest2?: Flex__<typeof ApiRequest>;
   showResult?: Flex__<typeof ShowResult>;
+  scoreCard?: Flex__<typeof ScoreCard>;
 };
 
 export interface DefaultQuestionsProps {
@@ -106,6 +114,7 @@ export interface DefaultQuestionsProps {
   userId?: string;
   onShowResultsChange?: (val: string) => void;
   testId?: number;
+  onExistingAnswerChange?: (val: string) => void;
   className?: string;
 }
 
@@ -221,6 +230,32 @@ function PlasmicQuestions__RenderFunc(props: {
               throw e;
             }
           })()
+      },
+      {
+        path: "apiRequest3.data",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest3.error",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest3.loading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "existingAnswer",
+        type: "readonly",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => true,
+
+        onChangeProp: "onExistingAnswerChange"
       }
     ],
     [$props, $ctx, $refs]
@@ -250,6 +285,195 @@ function PlasmicQuestions__RenderFunc(props: {
       )}
     >
       <ApiRequest
+        data-plasmic-name={"apiRequest3"}
+        data-plasmic-override={overrides.apiRequest3}
+        className={classNames("__wab_instance", sty.apiRequest3)}
+        errorDisplay={null}
+        loadingDisplay={
+          <MotionBlur2SvgIcon
+            className={classNames(projectcss.all, sty.svg__yw6Cn)}
+            role={"img"}
+          />
+        }
+        method={"GET"}
+        onError={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest3", "error"]).apply(
+            null,
+            eventArgs
+          );
+        }}
+        onLoading={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest3", "loading"]).apply(
+            null,
+            eventArgs
+          );
+        }}
+        onSuccess={async (...eventArgs: any) => {
+          generateStateOnChangeProp($state, ["apiRequest3", "data"]).apply(
+            null,
+            eventArgs
+          );
+        }}
+        url={(() => {
+          try {
+            return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
+          } catch (e) {
+            if (
+              e instanceof TypeError ||
+              e?.plasmicType === "PlasmicUndefinedDataError"
+            ) {
+              return undefined;
+            }
+            throw e;
+          }
+        })()}
+      >
+        {(() => {
+          try {
+            return !!$state.existingAnswer && !$state.showResults;
+          } catch (e) {
+            if (
+              e instanceof TypeError ||
+              e?.plasmicType === "PlasmicUndefinedDataError"
+            ) {
+              return true;
+            }
+            throw e;
+          }
+        })() ? (
+          <Stack__
+            as={"div"}
+            data-plasmic-name={"existingResponse"}
+            data-plasmic-override={overrides.existingResponse}
+            hasGap={true}
+            className={classNames(projectcss.all, sty.existingResponse)}
+          >
+            <div className={classNames(projectcss.all, sty.freeBox___8F1Xj)}>
+              <XmarkSolid2SvgIcon
+                className={classNames(projectcss.all, sty.svg__fbrrG)}
+                onClick={async event => {
+                  const $steps = {};
+
+                  $steps["updateExistingAnswer"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          variable: {
+                            objRoot: $state,
+                            variablePath: ["existingAnswer"]
+                          },
+                          operation: 0,
+                          value: false
+                        };
+                        return (({
+                          variable,
+                          value,
+                          startIndex,
+                          deleteCount
+                        }) => {
+                          if (!variable) {
+                            return;
+                          }
+                          const { objRoot, variablePath } = variable;
+
+                          $stateSet(objRoot, variablePath, value);
+                          return value;
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["updateExistingAnswer"] != null &&
+                    typeof $steps["updateExistingAnswer"] === "object" &&
+                    typeof $steps["updateExistingAnswer"].then === "function"
+                  ) {
+                    $steps["updateExistingAnswer"] = await $steps[
+                      "updateExistingAnswer"
+                    ];
+                  }
+                }}
+                role={"img"}
+              />
+
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__hV2Ec)}
+              >
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox___7QHss)}
+                  onClick={async event => {
+                    const $steps = {};
+
+                    $steps["updateShowResults"] = true
+                      ? (() => {
+                          const actionArgs = {
+                            variable: {
+                              objRoot: $state,
+                              variablePath: ["showResults"]
+                            },
+                            operation: 0,
+                            value: true
+                          };
+                          return (({
+                            variable,
+                            value,
+                            startIndex,
+                            deleteCount
+                          }) => {
+                            if (!variable) {
+                              return;
+                            }
+                            const { objRoot, variablePath } = variable;
+
+                            $stateSet(objRoot, variablePath, value);
+                            return value;
+                          })?.apply(null, [actionArgs]);
+                        })()
+                      : undefined;
+                    if (
+                      $steps["updateShowResults"] != null &&
+                      typeof $steps["updateShowResults"] === "object" &&
+                      typeof $steps["updateShowResults"].then === "function"
+                    ) {
+                      $steps["updateShowResults"] = await $steps[
+                        "updateShowResults"
+                      ];
+                    }
+                  }}
+                >
+                  <ChevronLeftSolid4SvgIcon
+                    className={classNames(projectcss.all, sty.svg__jxnH)}
+                    role={"img"}
+                  />
+
+                  <div
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.__wab_text,
+                      sty.text__goDwN
+                    )}
+                  >
+                    {"\u062f\u06cc\u062f\u0646 \u0646\u062a\u0627\u06cc\u062c"}
+                  </div>
+                </Stack__>
+                <div
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.__wab_text,
+                    sty.text___1Ed9M
+                  )}
+                >
+                  {
+                    "!\u0642\u0628\u0644\u0627 \u0627\u06cc\u0646 \u062a\u0633\u062a \u0631\u0648 \u062f\u0627\u062f\u06cc"
+                  }
+                </div>
+              </Stack__>
+            </div>
+          </Stack__>
+        ) : null}
+      </ApiRequest>
+      <ApiRequest
         data-plasmic-name={"apiRequest"}
         data-plasmic-override={overrides.apiRequest}
         className={classNames("__wab_instance", sty.apiRequest)}
@@ -265,10 +489,23 @@ function PlasmicQuestions__RenderFunc(props: {
           </div>
         }
         loadingDisplay={
-          <MotionBlur2SvgIcon
-            className={classNames(projectcss.all, sty.svg___0V6Lu)}
-            role={"img"}
-          />
+          <div className={classNames(projectcss.all, sty.freeBox___0BGao)}>
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text___94L9E
+              )}
+            >
+              {
+                "\u062f\u0631\u062d\u0627\u0644 \u0622\u0645\u0627\u062f\u0647\u200c\u0633\u0627\u0632\u06cc \u0633\u0648\u0627\u0644\u200c\u0647\u0627"
+              }
+            </div>
+            <MotionBlur2SvgIcon
+              className={classNames(projectcss.all, sty.svg__wyN6C)}
+              role={"img"}
+            />
+          </div>
         }
         method={"GET"}
         onError={async (...eventArgs: any) => {
@@ -308,29 +545,45 @@ function PlasmicQuestions__RenderFunc(props: {
           hasGap={true}
           className={classNames(projectcss.all, sty.freeBox__y34Bm)}
         >
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text__hs3Y
-            )}
-          >
-            <React.Fragment>
-              {(() => {
-                try {
-                  return $state.currentQuestion + "/" + $state.questions.length;
-                } catch (e) {
-                  if (
-                    e instanceof TypeError ||
-                    e?.plasmicType === "PlasmicUndefinedDataError"
-                  ) {
-                    return "1/30";
+          {(() => {
+            try {
+              return !$state.showResults;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return true;
+              }
+              throw e;
+            }
+          })() ? (
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__hs3Y
+              )}
+            >
+              <React.Fragment>
+                {(() => {
+                  try {
+                    return (
+                      $state.currentQuestion + "/" + $state.questions.length
+                    );
+                  } catch (e) {
+                    if (
+                      e instanceof TypeError ||
+                      e?.plasmicType === "PlasmicUndefinedDataError"
+                    ) {
+                      return "1/30";
+                    }
+                    throw e;
                   }
-                  throw e;
-                }
-              })()}
-            </React.Fragment>
-          </div>
+                })()}
+              </React.Fragment>
+            </div>
+          ) : null}
           <Stack__
             as={"div"}
             hasGap={true}
@@ -851,7 +1104,15 @@ function PlasmicQuestions__RenderFunc(props: {
                   className={classNames("__wab_instance", sty.showResult)}
                   score={(() => {
                     try {
-                      return $state.apiRequest2.data[0].finalScore;
+                      return (() => {
+                        const finalScore =
+                          $state.apiRequest2.data?.[0]?.finalScore !==
+                            undefined &&
+                          $state.apiRequest2.data?.[0]?.finalScore !== ""
+                            ? $state.apiRequest2.data[0].finalScore
+                            : $state.apiRequest3.data?.[0]?.finalScore;
+                        return finalScore;
+                      })();
                     } catch (e) {
                       if (
                         e instanceof TypeError ||
@@ -866,6 +1127,51 @@ function PlasmicQuestions__RenderFunc(props: {
               ) : null}
             </ApiRequest>
           ) : null}
+          {(() => {
+            try {
+              return !!$state.showResults;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return true;
+              }
+              throw e;
+            }
+          })() ? (
+            <ScoreCard
+              data-plasmic-name={"scoreCard"}
+              data-plasmic-override={overrides.scoreCard}
+              className={classNames("__wab_instance", sty.scoreCard)}
+              testId={(() => {
+                try {
+                  return $props.testId;
+                } catch (e) {
+                  if (
+                    e instanceof TypeError ||
+                    e?.plasmicType === "PlasmicUndefinedDataError"
+                  ) {
+                    return undefined;
+                  }
+                  throw e;
+                }
+              })()}
+              userId={(() => {
+                try {
+                  return $props.userId;
+                } catch (e) {
+                  if (
+                    e instanceof TypeError ||
+                    e?.plasmicType === "PlasmicUndefinedDataError"
+                  ) {
+                    return undefined;
+                  }
+                  throw e;
+                }
+              })()}
+            />
+          ) : null}
         </Stack__>
       </ApiRequest>
     </Stack__>
@@ -875,34 +1181,44 @@ function PlasmicQuestions__RenderFunc(props: {
 const PlasmicDescendants = {
   root: [
     "root",
+    "apiRequest3",
+    "existingResponse",
     "apiRequest",
     "questionContainer",
     "previousQuestionButton",
     "apiRequest2",
-    "showResult"
+    "showResult",
+    "scoreCard"
   ],
+  apiRequest3: ["apiRequest3", "existingResponse"],
+  existingResponse: ["existingResponse"],
   apiRequest: [
     "apiRequest",
     "questionContainer",
     "previousQuestionButton",
     "apiRequest2",
-    "showResult"
+    "showResult",
+    "scoreCard"
   ],
   questionContainer: ["questionContainer"],
   previousQuestionButton: ["previousQuestionButton"],
   apiRequest2: ["apiRequest2", "showResult"],
-  showResult: ["showResult"]
+  showResult: ["showResult"],
+  scoreCard: ["scoreCard"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
+  apiRequest3: typeof ApiRequest;
+  existingResponse: "div";
   apiRequest: typeof ApiRequest;
   questionContainer: typeof QuestionContainer;
   previousQuestionButton: typeof PreviousQuestionButton;
   apiRequest2: typeof ApiRequest;
   showResult: typeof ShowResult;
+  scoreCard: typeof ScoreCard;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -965,11 +1281,14 @@ export const PlasmicQuestions = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
+    apiRequest3: makeNodeComponent("apiRequest3"),
+    existingResponse: makeNodeComponent("existingResponse"),
     apiRequest: makeNodeComponent("apiRequest"),
     questionContainer: makeNodeComponent("questionContainer"),
     previousQuestionButton: makeNodeComponent("previousQuestionButton"),
     apiRequest2: makeNodeComponent("apiRequest2"),
     showResult: makeNodeComponent("showResult"),
+    scoreCard: makeNodeComponent("scoreCard"),
 
     // Metadata about props expected for PlasmicQuestions
     internalVariantProps: PlasmicQuestions__VariantProps,
