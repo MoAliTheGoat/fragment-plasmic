@@ -81,7 +81,7 @@ export const PlasmicHome__ArgProps = new Array<ArgPropType>();
 export type PlasmicHome__OverridesType = {
   root?: Flex__<"div">;
   selectTestPage?: Flex__<typeof SelectTestPage>;
-  embedHtml?: Flex__<typeof Embed>;
+  clarity?: Flex__<typeof Embed>;
 };
 
 export interface DefaultHomeProps {}
@@ -195,10 +195,12 @@ function PlasmicHome__RenderFunc(props: {
           />
 
           <Embed
-            data-plasmic-name={"embedHtml"}
-            data-plasmic-override={overrides.embedHtml}
-            className={classNames("__wab_instance", sty.embedHtml)}
-            code={"<div>Paste your embed code via the right sidebar</div>"}
+            data-plasmic-name={"clarity"}
+            data-plasmic-override={overrides.clarity}
+            className={classNames("__wab_instance", sty.clarity)}
+            code={
+              '<script type="text/javascript">\n    (function(c,l,a,r,i,t,y){\n        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\n        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;\n        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\n    })(window, document, "clarity", "script", "qbzbyqol6v");\n</script>'
+            }
           />
         </div>
       </div>
@@ -207,9 +209,9 @@ function PlasmicHome__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "selectTestPage", "embedHtml"],
+  root: ["root", "selectTestPage", "clarity"],
   selectTestPage: ["selectTestPage"],
-  embedHtml: ["embedHtml"]
+  clarity: ["clarity"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -217,7 +219,7 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   selectTestPage: typeof SelectTestPage;
-  embedHtml: typeof Embed;
+  clarity: typeof Embed;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -281,7 +283,7 @@ export const PlasmicHome = Object.assign(
   {
     // Helper components rendering sub-elements
     selectTestPage: makeNodeComponent("selectTestPage"),
-    embedHtml: makeNodeComponent("embedHtml"),
+    clarity: makeNodeComponent("clarity"),
 
     // Metadata about props expected for PlasmicHome
     internalVariantProps: PlasmicHome__VariantProps,
