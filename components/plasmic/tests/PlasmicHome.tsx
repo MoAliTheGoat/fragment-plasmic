@@ -60,6 +60,7 @@ import {
 } from "@plasmicapp/react-web/lib/host";
 
 import SelectTestPage from "../../SelectTestPage"; // plasmic-import: NS5HItibdY0W/component
+import { Embed } from "@plasmicpkgs/plasmic-basic-components";
 
 import "@plasmicapp/react-web/lib/plasmic.css";
 
@@ -80,6 +81,7 @@ export const PlasmicHome__ArgProps = new Array<ArgPropType>();
 export type PlasmicHome__OverridesType = {
   root?: Flex__<"div">;
   selectTestPage?: Flex__<typeof SelectTestPage>;
+  embedHtml?: Flex__<typeof Embed>;
 };
 
 export interface DefaultHomeProps {}
@@ -191,6 +193,13 @@ function PlasmicHome__RenderFunc(props: {
               }
             })()}
           />
+
+          <Embed
+            data-plasmic-name={"embedHtml"}
+            data-plasmic-override={overrides.embedHtml}
+            className={classNames("__wab_instance", sty.embedHtml)}
+            code={"<div>Paste your embed code via the right sidebar</div>"}
+          />
         </div>
       </div>
     </React.Fragment>
@@ -198,8 +207,9 @@ function PlasmicHome__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "selectTestPage"],
-  selectTestPage: ["selectTestPage"]
+  root: ["root", "selectTestPage", "embedHtml"],
+  selectTestPage: ["selectTestPage"],
+  embedHtml: ["embedHtml"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -207,6 +217,7 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   selectTestPage: typeof SelectTestPage;
+  embedHtml: typeof Embed;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -270,10 +281,17 @@ export const PlasmicHome = Object.assign(
   {
     // Helper components rendering sub-elements
     selectTestPage: makeNodeComponent("selectTestPage"),
+    embedHtml: makeNodeComponent("embedHtml"),
 
     // Metadata about props expected for PlasmicHome
     internalVariantProps: PlasmicHome__VariantProps,
     internalArgProps: PlasmicHome__ArgProps,
+
+    // Key-value metadata
+    metadata: {
+      clarity:
+        '<script type="text/javascript">     (function(c,l,a,r,i,t,y){         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);     })(window, document, "clarity", "script", "qbzbyqol6v"); </script>'
+    },
 
     // Page metadata
     pageMetadata: {
