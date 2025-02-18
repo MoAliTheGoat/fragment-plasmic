@@ -70,9 +70,9 @@ import "@plasmicapp/react-web/lib/plasmic.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: fy2Wd7JJUEGBqb9w6rWnVF/projectcss
 import sty from "./PlasmicQuestions.module.css"; // plasmic-import: El_QD23x2som/css
 
-import MotionBlur2SvgIcon from "./icons/PlasmicIcon__MotionBlur2Svg"; // plasmic-import: U318mCBIhz8C/icon
 import XmarkSolid2SvgIcon from "./icons/PlasmicIcon__XmarkSolid2Svg"; // plasmic-import: C3UBcoIYhb-n/icon
 import ChevronLeftSolid4SvgIcon from "./icons/PlasmicIcon__ChevronLeftSolid4Svg"; // plasmic-import: pzLGb4DZmfkD/icon
+import MotionBlur2SvgIcon from "./icons/PlasmicIcon__MotionBlur2Svg"; // plasmic-import: U318mCBIhz8C/icon
 
 createPlasmicElementProxy;
 
@@ -289,12 +289,7 @@ function PlasmicQuestions__RenderFunc(props: {
         data-plasmic-override={overrides.apiRequest3}
         className={classNames("__wab_instance", sty.apiRequest3)}
         errorDisplay={null}
-        loadingDisplay={
-          <MotionBlur2SvgIcon
-            className={classNames(projectcss.all, sty.svg__yw6Cn)}
-            role={"img"}
-          />
-        }
+        loadingDisplay={null}
         method={"GET"}
         onError={async (...eventArgs: any) => {
           generateStateOnChangeProp($state, ["apiRequest3", "error"]).apply(
