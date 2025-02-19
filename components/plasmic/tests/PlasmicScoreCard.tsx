@@ -59,8 +59,8 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
+import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 import ScoreCardContainer from "../../ScoreCardContainer"; // plasmic-import: fDBcVoWbGgMw/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -91,8 +91,9 @@ export const PlasmicScoreCard__ArgProps = new Array<ArgPropType>(
 
 export type PlasmicScoreCard__OverridesType = {
   root?: Flex__<"div">;
-  showResult?: Flex__<typeof ShowResult>;
   apiRequest?: Flex__<typeof ApiRequest>;
+  apiRequest2?: Flex__<typeof ApiRequest>;
+  showResult?: Flex__<typeof ShowResult>;
 };
 
 export interface DefaultScoreCardProps {
@@ -158,6 +159,24 @@ function PlasmicScoreCard__RenderFunc(props: {
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.data",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.error",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "apiRequest2.loading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -186,38 +205,6 @@ function PlasmicScoreCard__RenderFunc(props: {
         sty.root
       )}
     >
-      <ShowResult
-        data-plasmic-name={"showResult"}
-        data-plasmic-override={overrides.showResult}
-        className={classNames("__wab_instance", sty.showResult)}
-        testId={(() => {
-          try {
-            return $props.testId;
-          } catch (e) {
-            if (
-              e instanceof TypeError ||
-              e?.plasmicType === "PlasmicUndefinedDataError"
-            ) {
-              return undefined;
-            }
-            throw e;
-          }
-        })()}
-        userId={(() => {
-          try {
-            return $props.userId;
-          } catch (e) {
-            if (
-              e instanceof TypeError ||
-              e?.plasmicType === "PlasmicUndefinedDataError"
-            ) {
-              return undefined;
-            }
-            throw e;
-          }
-        })()}
-      />
-
       <ApiRequest
         data-plasmic-name={"apiRequest"}
         data-plasmic-override={overrides.apiRequest}
@@ -285,6 +272,79 @@ function PlasmicScoreCard__RenderFunc(props: {
           }
         })()}
       >
+        <ApiRequest
+          data-plasmic-name={"apiRequest2"}
+          data-plasmic-override={overrides.apiRequest2}
+          className={classNames("__wab_instance", sty.apiRequest2)}
+          errorDisplay={
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__oaQaN
+              )}
+            >
+              {"Error fetching data"}
+            </div>
+          }
+          loadingDisplay={
+            <MotionBlur2SvgIcon
+              className={classNames(projectcss.all, sty.svg__zdm6C)}
+              role={"img"}
+            />
+          }
+          method={"GET"}
+          onError={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest2", "error"]).apply(
+              null,
+              eventArgs
+            );
+          }}
+          onLoading={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest2", "loading"]).apply(
+              null,
+              eventArgs
+            );
+          }}
+          onSuccess={async (...eventArgs: any) => {
+            generateStateOnChangeProp($state, ["apiRequest2", "data"]).apply(
+              null,
+              eventArgs
+            );
+          }}
+          url={(() => {
+            try {
+              return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return undefined;
+              }
+              throw e;
+            }
+          })()}
+        >
+          <ShowResult
+            data-plasmic-name={"showResult"}
+            data-plasmic-override={overrides.showResult}
+            className={classNames("__wab_instance", sty.showResult)}
+            score={(() => {
+              try {
+                return $state.apiRequest2.data[0].finalScore;
+              } catch (e) {
+                if (
+                  e instanceof TypeError ||
+                  e?.plasmicType === "PlasmicUndefinedDataError"
+                ) {
+                  return undefined;
+                }
+                throw e;
+              }
+            })()}
+          />
+        </ApiRequest>
         <Stack__
           as={"div"}
           hasGap={true}
@@ -507,17 +567,19 @@ function PlasmicScoreCard__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "showResult", "apiRequest"],
-  showResult: ["showResult"],
-  apiRequest: ["apiRequest"]
+  root: ["root", "apiRequest", "apiRequest2", "showResult"],
+  apiRequest: ["apiRequest", "apiRequest2", "showResult"],
+  apiRequest2: ["apiRequest2", "showResult"],
+  showResult: ["showResult"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  showResult: typeof ShowResult;
   apiRequest: typeof ApiRequest;
+  apiRequest2: typeof ApiRequest;
+  showResult: typeof ShowResult;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -580,8 +642,9 @@ export const PlasmicScoreCard = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    showResult: makeNodeComponent("showResult"),
     apiRequest: makeNodeComponent("apiRequest"),
+    apiRequest2: makeNodeComponent("apiRequest2"),
+    showResult: makeNodeComponent("showResult"),
 
     // Metadata about props expected for PlasmicScoreCard
     internalVariantProps: PlasmicScoreCard__VariantProps,

@@ -59,8 +59,6 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
-
 import "@plasmicapp/react-web/lib/plasmic.css";
 
 import projectcss from "./plasmic.module.css"; // plasmic-import: fy2Wd7JJUEGBqb9w6rWnVF/projectcss
@@ -76,25 +74,20 @@ type VariantPropType = keyof PlasmicShowResult__VariantsArgs;
 export const PlasmicShowResult__VariantProps = new Array<VariantPropType>();
 
 export type PlasmicShowResult__ArgsType = {
-  userId?: string;
-  testId?: number;
+  score?: number;
 };
 type ArgPropType = keyof PlasmicShowResult__ArgsType;
-export const PlasmicShowResult__ArgProps = new Array<ArgPropType>(
-  "userId",
-  "testId"
-);
+export const PlasmicShowResult__ArgProps = new Array<ArgPropType>("score");
 
 export type PlasmicShowResult__OverridesType = {
   root?: Flex__<"div">;
-  apiRequest2?: Flex__<typeof ApiRequest>;
   freeBox?: Flex__<"div">;
+  text?: Flex__<"div">;
   svg?: Flex__<"svg">;
 };
 
 export interface DefaultShowResultProps {
-  userId?: string;
-  testId?: number;
+  score?: number;
   className?: string;
 }
 
@@ -136,36 +129,6 @@ function PlasmicShowResult__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
-  const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
-    () => [
-      {
-        path: "apiRequest2.data",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.error",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.loading",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      }
-    ],
-    [$props, $ctx, $refs]
-  );
-  const $state = useDollarState(stateSpecs, {
-    $props,
-    $ctx,
-    $queries: {},
-    $refs
-  });
-
   return (
     <div
       data-plasmic-name={"root"}
@@ -181,107 +144,55 @@ function PlasmicShowResult__RenderFunc(props: {
         sty.root
       )}
     >
-      <ApiRequest
-        data-plasmic-name={"apiRequest2"}
-        data-plasmic-override={overrides.apiRequest2}
-        className={classNames("__wab_instance", sty.apiRequest2)}
-        errorDisplay={
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text__hp3Rl
-            )}
-          >
-            {"Error fetching data"}
-          </div>
-        }
-        loadingDisplay={null}
-        method={"GET"}
-        onError={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest2", "error"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        onLoading={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest2", "loading"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        onSuccess={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest2", "data"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        url={(() => {
-          try {
-            return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
-          } catch (e) {
-            if (
-              e instanceof TypeError ||
-              e?.plasmicType === "PlasmicUndefinedDataError"
-            ) {
-              return undefined;
-            }
-            throw e;
-          }
-        })()}
+      <Stack__
+        as={"div"}
+        data-plasmic-name={"freeBox"}
+        data-plasmic-override={overrides.freeBox}
+        hasGap={true}
+        className={classNames(projectcss.all, sty.freeBox)}
       >
-        <Stack__
-          as={"div"}
-          data-plasmic-name={"freeBox"}
-          data-plasmic-override={overrides.freeBox}
-          hasGap={true}
-          className={classNames(projectcss.all, sty.freeBox)}
+        <div
+          data-plasmic-name={"text"}
+          data-plasmic-override={overrides.text}
+          className={classNames(
+            projectcss.all,
+            projectcss.__wab_text,
+            sty.text
+          )}
         >
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text___8VAcf
-            )}
-          >
-            <React.Fragment>
-              {(() => {
-                try {
-                  return (
-                    "عمر تخمینی شما" +
-                    " " +
-                    $state.apiRequest2.data[0].finalScore +
-                    " " +
-                    "سال می‌باشد"
-                  );
-                } catch (e) {
-                  if (
-                    e instanceof TypeError ||
-                    e?.plasmicType === "PlasmicUndefinedDataError"
-                  ) {
-                    return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
-                  }
-                  throw e;
+          <React.Fragment>
+            {(() => {
+              try {
+                return (
+                  "عمر تخمینی شما" + " " + $props.score + " " + "سال می‌باشد"
+                );
+              } catch (e) {
+                if (
+                  e instanceof TypeError ||
+                  e?.plasmicType === "PlasmicUndefinedDataError"
+                ) {
+                  return "\u0622\u06cc\u0627 \u0645\u062a\u0627\u0647\u0644 \u0647\u0633\u062a\u06cc\u062f\u061f";
                 }
-              })()}
-            </React.Fragment>
-          </div>
-          <PagelinesBrandsSolidSvgIcon
-            data-plasmic-name={"svg"}
-            data-plasmic-override={overrides.svg}
-            className={classNames(projectcss.all, sty.svg)}
-            role={"img"}
-          />
-        </Stack__>
-      </ApiRequest>
+                throw e;
+              }
+            })()}
+          </React.Fragment>
+        </div>
+        <PagelinesBrandsSolidSvgIcon
+          data-plasmic-name={"svg"}
+          data-plasmic-override={overrides.svg}
+          className={classNames(projectcss.all, sty.svg)}
+          role={"img"}
+        />
+      </Stack__>
     </div>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "apiRequest2", "freeBox", "svg"],
-  apiRequest2: ["apiRequest2", "freeBox", "svg"],
-  freeBox: ["freeBox", "svg"],
+  root: ["root", "freeBox", "text", "svg"],
+  freeBox: ["freeBox", "text", "svg"],
+  text: ["text"],
   svg: ["svg"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -289,8 +200,8 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  apiRequest2: typeof ApiRequest;
   freeBox: "div";
+  text: "div";
   svg: "svg";
 };
 
@@ -354,8 +265,8 @@ export const PlasmicShowResult = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    apiRequest2: makeNodeComponent("apiRequest2"),
     freeBox: makeNodeComponent("freeBox"),
+    text: makeNodeComponent("text"),
     svg: makeNodeComponent("svg"),
 
     // Metadata about props expected for PlasmicShowResult
