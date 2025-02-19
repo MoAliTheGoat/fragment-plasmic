@@ -59,7 +59,6 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
 import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 import ScoreCardContainer from "../../ScoreCardContainer"; // plasmic-import: fDBcVoWbGgMw/component
 
@@ -67,10 +66,6 @@ import "@plasmicapp/react-web/lib/plasmic.css";
 
 import projectcss from "./plasmic.module.css"; // plasmic-import: fy2Wd7JJUEGBqb9w6rWnVF/projectcss
 import sty from "./PlasmicScoreCard.module.css"; // plasmic-import: 0gav2D2th5XT/css
-
-import MotionBlur2SvgIcon from "./icons/PlasmicIcon__MotionBlur2Svg"; // plasmic-import: U318mCBIhz8C/icon
-import CircleMinusSolidSvgIcon from "./icons/PlasmicIcon__CircleMinusSolidSvg"; // plasmic-import: 8Dpypa1bPe8Q/icon
-import CirclePlusSolidSvgIcon from "./icons/PlasmicIcon__CirclePlusSolidSvg"; // plasmic-import: n4sOLp70jmcP/icon
 
 createPlasmicElementProxy;
 
@@ -82,23 +77,36 @@ export const PlasmicScoreCard__VariantProps = new Array<VariantPropType>();
 export type PlasmicScoreCard__ArgsType = {
   testId?: number;
   userId?: string;
+  score?: number;
+  point?: number;
+  questionText?: string;
+  answerText?: string;
 };
 type ArgPropType = keyof PlasmicScoreCard__ArgsType;
 export const PlasmicScoreCard__ArgProps = new Array<ArgPropType>(
   "testId",
-  "userId"
+  "userId",
+  "score",
+  "point",
+  "questionText",
+  "answerText"
 );
 
 export type PlasmicScoreCard__OverridesType = {
   root?: Flex__<"div">;
-  apiRequest?: Flex__<typeof ApiRequest>;
-  apiRequest2?: Flex__<typeof ApiRequest>;
   showResult?: Flex__<typeof ShowResult>;
+  text?: Flex__<"div">;
+  freeBox?: Flex__<"div">;
+  scoreCardContainer?: Flex__<typeof ScoreCardContainer>;
 };
 
 export interface DefaultScoreCardProps {
   testId?: number;
   userId?: string;
+  score?: number;
+  point?: number;
+  questionText?: string;
+  answerText?: string;
   className?: string;
 }
 
@@ -140,54 +148,6 @@ function PlasmicScoreCard__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
-  const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
-    () => [
-      {
-        path: "apiRequest.data",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest.error",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest.loading",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.data",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.error",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.loading",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      }
-    ],
-    [$props, $ctx, $refs]
-  );
-  const $state = useDollarState(stateSpecs, {
-    $props,
-    $ctx,
-    $queries: {},
-    $refs
-  });
-
   return (
     <Stack__
       as={"div"}
@@ -205,62 +165,13 @@ function PlasmicScoreCard__RenderFunc(props: {
         sty.root
       )}
     >
-      <ApiRequest
-        data-plasmic-name={"apiRequest"}
-        data-plasmic-override={overrides.apiRequest}
-        className={classNames("__wab_instance", sty.apiRequest)}
-        errorDisplay={
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text__q1AfL
-            )}
-          >
-            {"Error fetching data"}
-          </div>
-        }
-        loadingDisplay={
-          <div className={classNames(projectcss.all, sty.freeBox___649Wi)}>
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__j8EfB
-              )}
-            >
-              {
-                "\u0628\u0630\u0627\u0631 \u0628\u0628\u06cc\u0646\u06cc\u0645 \u0628\u0647\u062a \u0627\u0645\u06cc\u062f\u06cc \u0647\u0633\u062a\u061f"
-              }
-            </div>
-            <MotionBlur2SvgIcon
-              className={classNames(projectcss.all, sty.svg__j6Qqy)}
-              role={"img"}
-            />
-          </div>
-        }
-        method={"GET"}
-        onError={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest", "error"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        onLoading={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest", "loading"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        onSuccess={async (...eventArgs: any) => {
-          generateStateOnChangeProp($state, ["apiRequest", "data"]).apply(
-            null,
-            eventArgs
-          );
-        }}
-        url={(() => {
+      <ShowResult
+        data-plasmic-name={"showResult"}
+        data-plasmic-override={overrides.showResult}
+        className={classNames("__wab_instance", sty.showResult)}
+        score={(() => {
           try {
-            return `https://n8n-doctorjan.darkube.app/webhook/v1/scoreCard?testId=${$props.testId}&userId=${$props.userId}`;
+            return $props.score;
           } catch (e) {
             if (
               e instanceof TypeError ||
@@ -271,50 +182,28 @@ function PlasmicScoreCard__RenderFunc(props: {
             throw e;
           }
         })()}
+      />
+
+      <div
+        data-plasmic-name={"text"}
+        data-plasmic-override={overrides.text}
+        className={classNames(projectcss.all, projectcss.__wab_text, sty.text)}
       >
-        <ApiRequest
-          data-plasmic-name={"apiRequest2"}
-          data-plasmic-override={overrides.apiRequest2}
-          className={classNames("__wab_instance", sty.apiRequest2)}
-          errorDisplay={
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__oaQaN
-              )}
-            >
-              {"Error fetching data"}
-            </div>
-          }
-          loadingDisplay={
-            <MotionBlur2SvgIcon
-              className={classNames(projectcss.all, sty.svg__zdm6C)}
-              role={"img"}
-            />
-          }
-          method={"GET"}
-          onError={async (...eventArgs: any) => {
-            generateStateOnChangeProp($state, ["apiRequest2", "error"]).apply(
-              null,
-              eventArgs
-            );
-          }}
-          onLoading={async (...eventArgs: any) => {
-            generateStateOnChangeProp($state, ["apiRequest2", "loading"]).apply(
-              null,
-              eventArgs
-            );
-          }}
-          onSuccess={async (...eventArgs: any) => {
-            generateStateOnChangeProp($state, ["apiRequest2", "data"]).apply(
-              null,
-              eventArgs
-            );
-          }}
-          url={(() => {
+        {""}
+      </div>
+      <Stack__
+        as={"div"}
+        data-plasmic-name={"freeBox"}
+        data-plasmic-override={overrides.freeBox}
+        hasGap={true}
+        className={classNames(projectcss.all, sty.freeBox)}
+      >
+        <ScoreCardContainer
+          data-plasmic-name={"scoreCardContainer"}
+          data-plasmic-override={overrides.scoreCardContainer}
+          answerText={(() => {
             try {
-              return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
+              return $props.answerText;
             } catch (e) {
               if (
                 e instanceof TypeError ||
@@ -325,261 +214,55 @@ function PlasmicScoreCard__RenderFunc(props: {
               throw e;
             }
           })()}
-        >
-          <ShowResult
-            data-plasmic-name={"showResult"}
-            data-plasmic-override={overrides.showResult}
-            className={classNames("__wab_instance", sty.showResult)}
-            score={(() => {
-              try {
-                return $state.apiRequest2.data[0].finalScore;
-              } catch (e) {
-                if (
-                  e instanceof TypeError ||
-                  e?.plasmicType === "PlasmicUndefinedDataError"
-                ) {
-                  return undefined;
-                }
-                throw e;
+          className={classNames("__wab_instance", sty.scoreCardContainer)}
+          point={(() => {
+            try {
+              return $props.point;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return undefined;
               }
-            })()}
-          />
-        </ApiRequest>
-        <Stack__
-          as={"div"}
-          hasGap={true}
-          className={classNames(projectcss.all, sty.freeBox___87QyH)}
-        >
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text__gXvVc
-            )}
-          >
-            {""}
-          </div>
-          <Stack__
-            as={"div"}
-            hasGap={true}
-            className={classNames(projectcss.all, sty.freeBox__tmDw3)}
-          >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__gw3V7
-              )}
-            >
-              {
-                "\u0686\u0647 \u0686\u06cc\u0632\u0647\u0627\u06cc\u06cc \u0628\u0627\u0639\u062b \u06a9\u0627\u0647\u0634 \u0639\u0645\u0631\u062a \u0645\u06cc\u200c\u0634\u0647\u061f"
+              throw e;
+            }
+          })()}
+          questionText={(() => {
+            try {
+              return $props.questionText;
+            } catch (e) {
+              if (
+                e instanceof TypeError ||
+                e?.plasmicType === "PlasmicUndefinedDataError"
+              ) {
+                return undefined;
               }
-            </div>
-            <CircleMinusSolidSvgIcon
-              className={classNames(projectcss.all, sty.svg__qr3S7)}
-              role={"img"}
-            />
-          </Stack__>
-          {(_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
-            (() => {
-              try {
-                return (() => {
-                  const sortedNegative = $state.apiRequest.data
-                    .filter(item => item.point < 0)
-                    .sort((a, b) => a.point - b.point)
-                    .slice(0, 3);
-                  return sortedNegative;
-                })();
-              } catch (e) {
-                if (
-                  e instanceof TypeError ||
-                  e?.plasmicType === "PlasmicUndefinedDataError"
-                ) {
-                  return [];
-                }
-                throw e;
-              }
-            })()
-          ).map((__plasmic_item_0, __plasmic_idx_0) => {
-            const currentItem = __plasmic_item_0;
-            const currentIndex = __plasmic_idx_0;
-            return (
-              <ScoreCardContainer
-                answerText={(() => {
-                  try {
-                    return currentItem.answer_text;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-                className={classNames(
-                  "__wab_instance",
-                  sty.scoreCardContainer__npqdg
-                )}
-                key={currentIndex}
-                point={(() => {
-                  try {
-                    return currentItem.point;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-                questionText={(() => {
-                  try {
-                    return currentItem.question_text;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-              />
-            );
-          })}
-        </Stack__>
-        <Stack__
-          as={"div"}
-          hasGap={true}
-          className={classNames(projectcss.all, sty.freeBox__rK7Rk)}
-        >
-          <div
-            className={classNames(
-              projectcss.all,
-              projectcss.__wab_text,
-              sty.text__qcaqR
-            )}
-          >
-            {""}
-          </div>
-          <Stack__
-            as={"div"}
-            hasGap={true}
-            className={classNames(projectcss.all, sty.freeBox__ggAxh)}
-          >
-            <div
-              className={classNames(
-                projectcss.all,
-                projectcss.__wab_text,
-                sty.text__o71R7
-              )}
-            >
-              {
-                "\u0686\u0647 \u0686\u06cc\u0632\u0647\u0627\u06cc\u06cc \u0639\u0645\u0631\u062a\u0648 \u0628\u06cc\u0634\u062a\u0631 \u0645\u06cc\u200c\u06a9\u0646\u0647\u061f"
-              }
-            </div>
-            <CirclePlusSolidSvgIcon
-              className={classNames(projectcss.all, sty.svg__ohJb6)}
-              role={"img"}
-            />
-          </Stack__>
-          {(_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
-            (() => {
-              try {
-                return (() => {
-                  const sortedPositive = $state.apiRequest.data
-                    .filter(item => item.point > 0)
-                    .sort((a, b) => b.point - a.point)
-                    .slice(0, 3);
-                  return sortedPositive;
-                })();
-              } catch (e) {
-                if (
-                  e instanceof TypeError ||
-                  e?.plasmicType === "PlasmicUndefinedDataError"
-                ) {
-                  return [];
-                }
-                throw e;
-              }
-            })()
-          ).map((__plasmic_item_0, __plasmic_idx_0) => {
-            const currentItem = __plasmic_item_0;
-            const currentIndex = __plasmic_idx_0;
-            return (
-              <ScoreCardContainer
-                answerText={(() => {
-                  try {
-                    return currentItem.answer_text;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-                className={classNames(
-                  "__wab_instance",
-                  sty.scoreCardContainer__alstm
-                )}
-                key={currentIndex}
-                point={(() => {
-                  try {
-                    return currentItem.point;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-                questionText={(() => {
-                  try {
-                    return currentItem.question_text;
-                  } catch (e) {
-                    if (
-                      e instanceof TypeError ||
-                      e?.plasmicType === "PlasmicUndefinedDataError"
-                    ) {
-                      return undefined;
-                    }
-                    throw e;
-                  }
-                })()}
-              />
-            );
-          })}
-        </Stack__>
-      </ApiRequest>
+              throw e;
+            }
+          })()}
+        />
+      </Stack__>
     </Stack__>
   ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-  root: ["root", "apiRequest", "apiRequest2", "showResult"],
-  apiRequest: ["apiRequest", "apiRequest2", "showResult"],
-  apiRequest2: ["apiRequest2", "showResult"],
-  showResult: ["showResult"]
+  root: ["root", "showResult", "text", "freeBox", "scoreCardContainer"],
+  showResult: ["showResult"],
+  text: ["text"],
+  freeBox: ["freeBox", "scoreCardContainer"],
+  scoreCardContainer: ["scoreCardContainer"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
-  apiRequest: typeof ApiRequest;
-  apiRequest2: typeof ApiRequest;
   showResult: typeof ShowResult;
+  text: "div";
+  freeBox: "div";
+  scoreCardContainer: typeof ScoreCardContainer;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -642,9 +325,10 @@ export const PlasmicScoreCard = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
-    apiRequest: makeNodeComponent("apiRequest"),
-    apiRequest2: makeNodeComponent("apiRequest2"),
     showResult: makeNodeComponent("showResult"),
+    text: makeNodeComponent("text"),
+    freeBox: makeNodeComponent("freeBox"),
+    scoreCardContainer: makeNodeComponent("scoreCardContainer"),
 
     // Metadata about props expected for PlasmicScoreCard
     internalVariantProps: PlasmicScoreCard__VariantProps,
