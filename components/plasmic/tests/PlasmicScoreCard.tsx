@@ -59,6 +59,7 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
+import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
 import ScoreCardContainer from "../../ScoreCardContainer"; // plasmic-import: fDBcVoWbGgMw/component
 
@@ -90,6 +91,7 @@ export const PlasmicScoreCard__ArgProps = new Array<ArgPropType>(
 
 export type PlasmicScoreCard__OverridesType = {
   root?: Flex__<"div">;
+  showResult?: Flex__<typeof ShowResult>;
   apiRequest?: Flex__<typeof ApiRequest>;
 };
 
@@ -184,6 +186,38 @@ function PlasmicScoreCard__RenderFunc(props: {
         sty.root
       )}
     >
+      <ShowResult
+        data-plasmic-name={"showResult"}
+        data-plasmic-override={overrides.showResult}
+        className={classNames("__wab_instance", sty.showResult)}
+        testId={(() => {
+          try {
+            return $props.testId;
+          } catch (e) {
+            if (
+              e instanceof TypeError ||
+              e?.plasmicType === "PlasmicUndefinedDataError"
+            ) {
+              return undefined;
+            }
+            throw e;
+          }
+        })()}
+        userId={(() => {
+          try {
+            return $props.userId;
+          } catch (e) {
+            if (
+              e instanceof TypeError ||
+              e?.plasmicType === "PlasmicUndefinedDataError"
+            ) {
+              return undefined;
+            }
+            throw e;
+          }
+        })()}
+      />
+
       <ApiRequest
         data-plasmic-name={"apiRequest"}
         data-plasmic-override={overrides.apiRequest}
@@ -200,10 +234,23 @@ function PlasmicScoreCard__RenderFunc(props: {
           </div>
         }
         loadingDisplay={
-          <MotionBlur2SvgIcon
-            className={classNames(projectcss.all, sty.svg__gB2T)}
-            role={"img"}
-          />
+          <div className={classNames(projectcss.all, sty.freeBox___649Wi)}>
+            <div
+              className={classNames(
+                projectcss.all,
+                projectcss.__wab_text,
+                sty.text__j8EfB
+              )}
+            >
+              {
+                "\u0628\u0630\u0627\u0631 \u0628\u0628\u06cc\u0646\u06cc\u0645 \u0628\u0647\u062a \u0627\u0645\u06cc\u062f\u06cc \u0647\u0633\u062a\u061f"
+              }
+            </div>
+            <MotionBlur2SvgIcon
+              className={classNames(projectcss.all, sty.svg__j6Qqy)}
+              role={"img"}
+            />
+          </div>
         }
         method={"GET"}
         onError={async (...eventArgs: any) => {
@@ -460,7 +507,8 @@ function PlasmicScoreCard__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "apiRequest"],
+  root: ["root", "showResult", "apiRequest"],
+  showResult: ["showResult"],
   apiRequest: ["apiRequest"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -468,6 +516,7 @@ type DescendantsType<T extends NodeNameType> =
   (typeof PlasmicDescendants)[T][number];
 type NodeDefaultElementType = {
   root: "div";
+  showResult: typeof ShowResult;
   apiRequest: typeof ApiRequest;
 };
 
@@ -531,6 +580,7 @@ export const PlasmicScoreCard = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
+    showResult: makeNodeComponent("showResult"),
     apiRequest: makeNodeComponent("apiRequest"),
 
     // Metadata about props expected for PlasmicScoreCard

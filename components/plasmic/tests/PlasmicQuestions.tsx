@@ -62,7 +62,6 @@ import {
 import { ApiRequest } from "@/fragment/components/api-request"; // plasmic-import: 25Vs_9R29fZY/codeComponent
 import QuestionContainer from "../../QuestionContainer"; // plasmic-import: dUNsHrAjueyS/component
 import PreviousQuestionButton from "../../PreviousQuestionButton"; // plasmic-import: vgie_seeuj1v/component
-import ShowResult from "../../ShowResult"; // plasmic-import: arB8QBSjXWbu/component
 import ScoreCard from "../../ScoreCard"; // plasmic-import: 0gav2D2th5XT/component
 
 import "@plasmicapp/react-web/lib/plasmic.css";
@@ -104,8 +103,6 @@ export type PlasmicQuestions__OverridesType = {
   apiRequest?: Flex__<typeof ApiRequest>;
   questionContainer?: Flex__<typeof QuestionContainer>;
   previousQuestionButton?: Flex__<typeof PreviousQuestionButton>;
-  apiRequest2?: Flex__<typeof ApiRequest>;
-  showResult?: Flex__<typeof ShowResult>;
   scoreCard?: Flex__<typeof ScoreCard>;
 };
 
@@ -190,24 +187,6 @@ function PlasmicQuestions__RenderFunc(props: {
       },
       {
         path: "apiRequest.loading",
-        type: "private",
-        variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.data",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.error",
-        type: "private",
-        variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
-      },
-      {
-        path: "apiRequest2.loading",
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => undefined
@@ -1008,133 +987,6 @@ function PlasmicQuestions__RenderFunc(props: {
               throw e;
             }
           })() ? (
-            <ApiRequest
-              data-plasmic-name={"apiRequest2"}
-              data-plasmic-override={overrides.apiRequest2}
-              className={classNames("__wab_instance", sty.apiRequest2)}
-              errorDisplay={
-                <div
-                  className={classNames(
-                    projectcss.all,
-                    projectcss.__wab_text,
-                    sty.text___8Tu59
-                  )}
-                >
-                  {"Error fetching data"}
-                </div>
-              }
-              loadingDisplay={
-                <div
-                  className={classNames(projectcss.all, sty.freeBox___9DTNz)}
-                >
-                  <div
-                    className={classNames(
-                      projectcss.all,
-                      projectcss.__wab_text,
-                      sty.text__hn6Hq
-                    )}
-                  >
-                    {
-                      "\u0628\u0630\u0627\u0631 \u0628\u0628\u06cc\u0646\u06cc\u0645 \u0628\u0647\u062a \u0627\u0645\u06cc\u062f\u06cc \u0647\u0633\u062a\u061f"
-                    }
-                  </div>
-                  <MotionBlur2SvgIcon
-                    className={classNames(projectcss.all, sty.svg__eClXc)}
-                    role={"img"}
-                  />
-                </div>
-              }
-              method={"GET"}
-              onError={async (...eventArgs: any) => {
-                generateStateOnChangeProp($state, [
-                  "apiRequest2",
-                  "error"
-                ]).apply(null, eventArgs);
-              }}
-              onLoading={async (...eventArgs: any) => {
-                generateStateOnChangeProp($state, [
-                  "apiRequest2",
-                  "loading"
-                ]).apply(null, eventArgs);
-              }}
-              onSuccess={async (...eventArgs: any) => {
-                generateStateOnChangeProp($state, [
-                  "apiRequest2",
-                  "data"
-                ]).apply(null, eventArgs);
-              }}
-              url={(() => {
-                try {
-                  return `https://n8n-doctorjan.darkube.app/webhook/v1/scores?id=${$props.userId}&testId=${$props.testId}`;
-                } catch (e) {
-                  if (
-                    e instanceof TypeError ||
-                    e?.plasmicType === "PlasmicUndefinedDataError"
-                  ) {
-                    return undefined;
-                  }
-                  throw e;
-                }
-              })()}
-            >
-              {(() => {
-                try {
-                  return (
-                    !!$state.showResults &&
-                    !!$state.apiRequest2.data[0]?.finalScore
-                  );
-                } catch (e) {
-                  if (
-                    e instanceof TypeError ||
-                    e?.plasmicType === "PlasmicUndefinedDataError"
-                  ) {
-                    return true;
-                  }
-                  throw e;
-                }
-              })() ? (
-                <ShowResult
-                  data-plasmic-name={"showResult"}
-                  data-plasmic-override={overrides.showResult}
-                  className={classNames("__wab_instance", sty.showResult)}
-                  score={(() => {
-                    try {
-                      return (() => {
-                        const finalScore =
-                          $state.apiRequest2.data?.[0]?.finalScore !==
-                            undefined &&
-                          $state.apiRequest2.data?.[0]?.finalScore !== ""
-                            ? $state.apiRequest2.data[0].finalScore
-                            : $state.apiRequest3.data?.[0]?.finalScore;
-                        return finalScore;
-                      })();
-                    } catch (e) {
-                      if (
-                        e instanceof TypeError ||
-                        e?.plasmicType === "PlasmicUndefinedDataError"
-                      ) {
-                        return undefined;
-                      }
-                      throw e;
-                    }
-                  })()}
-                />
-              ) : null}
-            </ApiRequest>
-          ) : null}
-          {(() => {
-            try {
-              return !!$state.showResults;
-            } catch (e) {
-              if (
-                e instanceof TypeError ||
-                e?.plasmicType === "PlasmicUndefinedDataError"
-              ) {
-                return true;
-              }
-              throw e;
-            }
-          })() ? (
             <ScoreCard
               data-plasmic-name={"scoreCard"}
               data-plasmic-override={overrides.scoreCard}
@@ -1181,8 +1033,6 @@ const PlasmicDescendants = {
     "apiRequest",
     "questionContainer",
     "previousQuestionButton",
-    "apiRequest2",
-    "showResult",
     "scoreCard"
   ],
   apiRequest3: ["apiRequest3", "existingResponse"],
@@ -1191,14 +1041,10 @@ const PlasmicDescendants = {
     "apiRequest",
     "questionContainer",
     "previousQuestionButton",
-    "apiRequest2",
-    "showResult",
     "scoreCard"
   ],
   questionContainer: ["questionContainer"],
   previousQuestionButton: ["previousQuestionButton"],
-  apiRequest2: ["apiRequest2", "showResult"],
-  showResult: ["showResult"],
   scoreCard: ["scoreCard"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -1211,8 +1057,6 @@ type NodeDefaultElementType = {
   apiRequest: typeof ApiRequest;
   questionContainer: typeof QuestionContainer;
   previousQuestionButton: typeof PreviousQuestionButton;
-  apiRequest2: typeof ApiRequest;
-  showResult: typeof ShowResult;
   scoreCard: typeof ScoreCard;
 };
 
@@ -1281,8 +1125,6 @@ export const PlasmicQuestions = Object.assign(
     apiRequest: makeNodeComponent("apiRequest"),
     questionContainer: makeNodeComponent("questionContainer"),
     previousQuestionButton: makeNodeComponent("previousQuestionButton"),
-    apiRequest2: makeNodeComponent("apiRequest2"),
-    showResult: makeNodeComponent("showResult"),
     scoreCard: makeNodeComponent("scoreCard"),
 
     // Metadata about props expected for PlasmicQuestions

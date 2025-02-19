@@ -33,7 +33,7 @@
   max-width: 100%;
   background: #e2f5ffb3;
   border-radius: 15px;
-  padding: 8px 8px 16px;
+  padding: 8px 8px 25px;
 }
 .existingResponse > :global(.__wab_flex-container) {
   flex-direction: row;
@@ -140,7 +140,7 @@
   height: auto;
   max-width: 100%;
   text-align: right;
-  font-family: "VazirMatnRegular";
+  font-family: "VazirMatnBold";
   color: #0288d1;
 }
 .text___1Ed9M {
@@ -272,54 +272,6 @@
   min-height: 0;
 }
 .previousQuestionButton:global(.__wab_instance) {
-  max-width: 100%;
-}
-.apiRequest2:global(.__wab_instance) {
-  max-width: 100%;
-  object-fit: cover;
-}
-.freeBox___9DTNz {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 8px;
-  justify-content: flex-start;
-  align-items: center;
-  min-width: 0;
-}
-.text__hn6Hq {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  font-family: "VazirMatnMedium";
-  font-weight: 400;
-  color: #0288d1;
-  text-align: center;
-  font-size: 20px;
-  user-select: none;
-}
-.svg__eClXc {
-  object-fit: cover;
-  max-width: 100%;
-  color: #0288d1;
-  width: 100%;
-  height: 40px;
-  min-width: 0;
-  flex-shrink: 0;
-}
-.text___8Tu59 {
-  position: relative;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  min-width: 0;
-}
-.showResult:global(.__wab_instance) {
   max-width: 100%;
 }
 .scoreCard:global(.__wab_instance) {
